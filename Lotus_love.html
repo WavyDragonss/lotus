@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Te iubesc 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('lotus.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .countdown {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+    section {
+      max-width: 700px;
+      margin: 2rem auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 1rem;
+      position: relative;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ff69b4;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      background-color: #ff85c1;
+      transform: scale(1.05);
+    }
+    #extraQuestions {
+      display: none;
+    }
+    .explode {
+      animation: explode 0.5s ease-out;
+    }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.8; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+    .char-count {
+      font-size: 0.85rem;
+      color: #ffe6ec;
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+    .credit {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      font-size: 0.8rem;
+      color: #ffb6c1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Buna, iubirea mea 💖</h1>
+    <p class="message">Ești tot ce am mai frumos 💌</p>
+    <div class="countdown" id="countdown"></div>
+  </header>
+
+  <section>
+    <form id="loveForm" action="https://formspree.io/f/xqaqokkk" method="POST" onsubmit="return finalValidation()">
+      <label for="q1_hangout">1. Locul preferat de hang out:</label>
+      <input type="text" id="q1_hangout" name="q1_hangout" required minlength="4" />
+
+      <label for="q2_replici">2. Replicile mele preferate:</label>
+      <input type="text" id="q2_replici" name="q2_replici" required minlength="4" />
+
+      <label for="q3_momente">3. Momentele noastre preferate:</label>
+      <input type="text" id="q3_momente" name="q3_momente" required minlength="4" />
+
+      <label for="q4_mancaruri">4. Mâncărurile mele preferate (minim 3, fiecare minim 4 litere):</label>
+      <input type="text" id="q4_mancaruri" name="q4_mancaruri" required />
+
+      <label for="q5_locOras">5. Locul meu preferat în oraș:</label>
+      <input type="text" id="q5_locOras" name="q5_locOras" required minlength="4" />
+
+      <label for="q6_bautura">6. Băutura mea preferată:</label>
+      <input type="text" id="q6_bautura" name="q6_bautura" required minlength="4" />
+
+      <button type="button" id="continueBtn" onclick="validateInitial()">Continuă 💌</button>
+
+      <div id="extraQuestions">
+        <label for="q7_opinie">7. Ce crezi despre mine? (minim 100 litere)</label>
+        <textarea id="q7_opinie" name="q7_opinie" minlength="100" required oninput="updateChar(this)"></textarea>
+        <div class="char-count" id="count_q7_opinie"></div>
+
+        <label for="q8_ganduri">8. Cât de des te gândești la mine? (10-30 litere)</label>
+        <input type="text" id="q8_ganduri" name="q8_ganduri" minlength="10" maxlength="30" required oninput="updateChar(this)" />
+        <div class="char-count" id="count_q8_ganduri"></div>
+
+        <label for="q9_poze">9. Câte poze ai cu mine? (număr)</label>
+        <input type="number" id="q9_poze" name="q9_poze" required min="0" />
+
+        <label for="q10_amintire">10. Ce amintire îți stă cel mai clar în minte? (minim 50 litere)</label>
+        <textarea id="q10_amintire" name="q10_amintire" minlength="50" required oninput="updateChar(this)"></textarea>
+        <div class="char-count" id="count_q10_amintire"></div>
+
+        <label for="q11_repetare">11. Dacă am repeta ceva din trecutul nostru, ce ai alege? (minim 150 litere)</label>
+        <textarea id="q11_repetare" name="q11_repetare" minlength="150" required oninput="updateChar(this)"></textarea>
+        <div class="char-count" id="count_q11_repetare"></div>
+
+        <label for="q12_rating">12. Ce notă (1-10) ai da acestei pagini?</label>
+        <select id="q12_rating" name="q12_rating" required>
+          <option value="">Selectează</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+        </select>
+
+        <p id="charCount"></p>
+        <button type="submit">Trimite 💌</button>
+      </div>
+    </form>
+    <div class="credit">Creat cu ❤️ de iubirea vietii tale</div>
+  </section>
+
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const today = new Date();
+    let targetDate = new Date(today.getFullYear(), today.getMonth(), 26);
+    if (today.getDate() > 26) targetDate = new Date(today.getFullYear(), today.getMonth() + 1, 26);
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `Mai sunt ${days} zile, ${hours} ore, ${minutes} minute și ${seconds} secunde până la aniversarea noastra!`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function validateInitial() {
+      const mancaruriInput = document.getElementById("q4_mancaruri");
+      const entries = mancaruriInput.value.split(",").map(e => e.trim()).filter(e => e.length >= 4);
+      if (entries.length < 3) {
+        alert("Trebuie minim 3 mâncăruri, fiecare cu cel puțin 4 litere.");
+        return;
+      }
+      const fields = ["q1_hangout", "q2_replici", "q3_momente", "q5_locOras", "q6_bautura"];
+      for (let id of fields) {
+        const el = document.getElementById(id);
+        if (el.value.trim().length < 4) {
+          alert("Te rog completează toate câmpurile inițiale (minim 4 litere).");
+          return;
+        }
+      }
+      const btn = document.getElementById("continueBtn");
+      btn.classList.add("explode");
+      setTimeout(() => {
+        document.getElementById("extraQuestions").style.display = "block";
+        btn.style.display = "none";
+      }, 500);
+    }
+
+    function finalValidation() {
+      const totalChars = ["q7_opinie", "q8_ganduri", "q10_amintire", "q11_repetare"]
+        .map(id => document.getElementById(id).value.length)
+        .reduce((a, b) => a + b, 0);
+      document.getElementById("charCount").textContent = `Ai introdus ${totalChars} caractere în total 📝`;
+      return true;
+    }
+
+    function updateChar(el) {
+      const countEl = document.getElementById("count_" + el.id);
+      countEl.textContent = `${el.value.length} caractere`;
+    }
+  </script>
+</body>
+</html>
