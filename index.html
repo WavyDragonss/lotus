@@ -13,7 +13,7 @@
       padding: 0;
       background: url('lotus.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Quicksand', Arial, sans-serif;
+      font-family: 'quicksand', Arial, sans-serif;
       color: #a70042;
       display: flex;
       align-items: center;
@@ -55,7 +55,7 @@
       border-radius: 18px;
       border: 2.5px solid #ffb6d5;
       font-size: 1.13rem;
-      font-family: 'Quicksand', Arial, sans-serif;
+      font-family: 'quicksand', Arial, sans-serif;
       font-weight: 700;
       cursor: pointer;
       margin: 0;
@@ -73,7 +73,7 @@
       border-bottom: 3px solid #ffd6e7;
     }
     .main-btn {
-      font-family: 'Dancing Script', cursive, 'Quicksand', Arial, sans-serif;
+      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
       font-size: 1.27rem;
       background: #ffb6d5;
       color: #a70042;
@@ -116,7 +116,7 @@
       .romantic-btn, .main-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
     }
 
-    /* --- Music Bubble Styles --- */
+    /* --- music bubble styles --- */
     .music-bubble {
       position: fixed;
       bottom: 24px;
@@ -125,7 +125,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      font-family: 'Quicksand', Arial, sans-serif;
+      font-family: 'quicksand', Arial, sans-serif;
     }
     .music-icon-btn {
       background: rgba(255, 182, 213, 0.95);
@@ -205,7 +205,7 @@
     .music-title {
       text-align: center;
       font-size: 1.07rem;
-      font-family: 'Dancing Script', cursive, 'Quicksand', Arial, sans-serif;
+      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
       color: #d4006f;
       margin-bottom: 0.41rem;
       margin-top: -0.16rem;
@@ -234,7 +234,6 @@
       text-align: center;
       user-select: none;
     }
-    /* Hide default audio controls */
     audio { display: none; }
     @media (max-width: 510px) {
       .music-bubble { bottom: 8px; right: 5px; }
@@ -246,17 +245,17 @@
   </style>
 </head>
 <body>
-  <!-- Music Player: Custom Bubble -->
+  <!-- music player: custom bubble -->
   <audio id="audio-player"></audio>
   <div class="music-bubble" id="music-bubble">
     <div class="music-controls" id="music-controls">
       <div class="music-title" id="music-title">Lotus Ambience</div>
       <div class="music-controls-row">
-        <button class="music-btn" id="prev-btn" title="Anterior">&#9198;</button>
-        <button class="music-btn" id="playpause-btn" title="Play/Pause">
+        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
+        <button class="music-btn" id="playpause-btn" title="play/pause">
           <span id="playpause-icon">&#10073;&#10073;</span>
         </button>
-        <button class="music-btn" id="next-btn" title="Următor">&#9197;</button>
+        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
       </div>
       <div class="music-controls-row">
         <span class="music-time" id="current-time">0:00</span>
@@ -265,11 +264,11 @@
       </div>
       <div class="music-controls-row">
         <span style="font-size:1.1rem;color:#a70042;">🔊</span>
-        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.9" title="Volum">
+        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
       </div>
     </div>
-    <button class="music-icon-btn" id="music-icon-btn" aria-label="Control Muzică" tabindex="0">
-      <span style="pointer-events:none;">&#119070;</span><!-- Unicode music note -->
+    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
+      <span style="pointer-events:none;">&#119070;</span>
     </button>
   </div>
 
@@ -295,23 +294,22 @@
   </div>
 
   <script>
-    // --- MUSIC PLAYER LOGIC ---
-    // ========== PLAYLIST SETUP ==========
-    // To add more tracks, add objects with 'src' and 'title' to the playlist array below.
-    // Make sure 'src' uses the correct lowercase filename and path.
+    // === MUSIC PLAYER LOGIC ===
+    // --- PLAYLIST SETUP ---
+    // To change order, change the order of entries in the playlist array.
+    // To add a new song, add another object: {src: 'filename.mp3', title: 'Display Name'}
+    // To set display name, set the 'title' property.
+    // To adjust starting volume, change DEFAULT_VOLUME below (0.0 to 1.0).
+
     const playlist = [
-      { src: 'lotus_ambient.mp3', title: 'Lotus Ambience' },
-      { src: 'lotus_night.mp3', title: 'Lotus Night' }
-      // Example: { src: 'lotus_third.mp3', title: 'Lotus Dream' }
+      { src: 'preput.mp3', title: 'Preput' },        // This will play first
+      { src: 'lotus_ambient.mp3', title: 'I Wanna Be Yours' }
     ];
 
-    // ========== SETTINGS ==========
-    // Adjust volume (0.0 - 1.0)
-    const DEFAULT_VOLUME = 0.9;
-    // Set to true to autoplay on user gesture
+    const DEFAULT_VOLUME = 0.3; // 30% volume on load
     const AUTOPLAY = true;
 
-    // ========== ELEMENTS ==========
+    // --- ELEMENTS ---
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('playpause-btn');
     const playPauseIcon = document.getElementById('playpause-icon');
@@ -326,11 +324,10 @@
     const controls = document.getElementById('music-controls');
     const iconBtn = document.getElementById('music-icon-btn');
 
-    // ========== PLAYLIST STATE ==========
+    // --- PLAYLIST STATE ---
     let currentTrack = 0;
     let seekbarChanging = false;
 
-    // ========== INIT ==========
     function loadTrack(idx, autoPlay = false) {
       // Loop to first if out of bounds
       if (idx < 0) idx = playlist.length - 1;
@@ -338,7 +335,6 @@
       currentTrack = idx;
       audio.src = playlist[currentTrack].src;
       musicTitle.textContent = playlist[currentTrack].title;
-      // Reset seekbar
       seekbar.value = 0;
       currentTimeEl.textContent = '0:00';
       durationEl.textContent = '0:00';
@@ -349,7 +345,7 @@
       }
     }
 
-    // ========== AUDIO EVENTS ==========
+    // --- AUDIO EVENTS ---
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationEl.textContent = formatTime(audio.duration);
@@ -361,11 +357,11 @@
       }
     });
     audio.addEventListener('ended', () => {
-      // Advance to next track and loop playlist
+      // Auto-advance to next track, loop playlist
       loadTrack(currentTrack + 1, true);
     });
 
-    // ========== PLAY/PAUSE ==========
+    // --- PLAY/PAUSE ---
     function updatePlayPause() {
       if (audio.paused) {
         playPauseIcon.innerHTML = '&#9654;'; // Play icon ▶️
@@ -384,7 +380,7 @@
     audio.addEventListener('play', updatePlayPause);
     audio.addEventListener('pause', updatePlayPause);
 
-    // ========== NEXT/PREVIOUS ==========
+    // --- NEXT/PREVIOUS ---
     nextBtn.addEventListener('click', () => {
       loadTrack(currentTrack + 1, !audio.paused);
     });
@@ -392,7 +388,7 @@
       loadTrack(currentTrack - 1, !audio.paused);
     });
 
-    // ========== SEEK ==========
+    // --- SEEK ---
     seekbar.addEventListener('input', function() {
       seekbarChanging = true;
       currentTimeEl.textContent = formatTime(this.value);
@@ -402,7 +398,7 @@
       seekbarChanging = false;
     });
 
-    // ========== VOLUME ==========
+    // --- VOLUME ---
     volumeSlider.addEventListener('input', function() {
       audio.volume = this.value;
     });
@@ -410,7 +406,7 @@
     audio.volume = DEFAULT_VOLUME;
     volumeSlider.value = DEFAULT_VOLUME;
 
-    // ========== FORMAT TIME ==========
+    // --- FORMAT TIME ---
     function formatTime(sec) {
       sec = Math.floor(sec);
       const m = Math.floor(sec / 60);
@@ -418,7 +414,7 @@
       return `${m}:${s.toString().padStart(2, '0')}`;
     }
 
-    // ========== AUTOPLAY HANDLING ==========
+    // --- AUTOPLAY HANDLING ---
     // Many browsers block autoplay until user interacts.
     let audioInitiated = false;
     function unlockAudio() {
@@ -431,7 +427,7 @@
     document.body.addEventListener('click', unlockAudio, {once:true});
     document.body.addEventListener('touchstart', unlockAudio, {once:true});
 
-    // ========== UI BUBBLE BEHAVIOR ==========
+    // --- UI BUBBLE BEHAVIOR ---
     // Desktop: show controls on hover
     // Mobile: toggle controls on tap, tap outside closes
     let isMobile = false;
@@ -450,14 +446,12 @@
       bubble.classList.remove('show-controls');
       controlsVisible = false;
     }
-    // Desktop hover
     bubble.addEventListener('mouseenter', function() {
       if (!isMobile) showControls();
     });
     bubble.addEventListener('mouseleave', function() {
       if (!isMobile) hideControls();
     });
-    // Mobile tap toggle
     iconBtn.addEventListener('click', function(e) {
       if (isMobile) {
         if (controlsVisible) {
@@ -468,34 +462,31 @@
         e.stopPropagation();
       }
     });
-    // Hide controls on outside tap (mobile)
     document.addEventListener('click', function(e) {
       if (isMobile && controlsVisible && !bubble.contains(e.target)) {
         hideControls();
       }
     });
-    // ESC hides controls (mobile)
     window.addEventListener('keydown', function(e) {
       if(isMobile && controlsVisible && e.key === "Escape") {
         hideControls();
       }
     });
 
-    // Prevent default submit/form action
     iconBtn.type = 'button';
 
-    // ========== INITIAL LOAD ==========
+    // --- INITIAL LOAD ---
     loadTrack(0, false);
     updatePlayPause();
 
-    // ========== HOW TO ADD SONGS ==========
     /*
-      - To add more songs: add entries to the 'playlist' array at the top:
-        { src: 'filename.mp3', title: 'Song Title' }
-      - Place the mp3 files in the same folder as this HTML file or adjust the path.
-      - The 'title' field sets the display name.
-      - Adjust DEFAULT_VOLUME for default player volume (0.0 - 1.0).
-      - Set AUTOPLAY to true for autoplay after first user gesture, false to start paused.
+      === HOW TO CONFIGURE PLAYLIST ===
+      - To change the order of songs: change their order in the playlist array.
+      - To add new songs: add more objects to the playlist array, e.g.:
+        { src: 'new_song.mp3', title: 'New Song Name' }
+      - To set display names: adjust the 'title' property for each song.
+      - To adjust the initial volume: change DEFAULT_VOLUME (0.0 = mute, 1.0 = max).
+      - All filenames, IDs, and classes should remain lowercase for case-sensitive hosting.
     */
   </script>
 </body>
