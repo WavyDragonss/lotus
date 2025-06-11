@@ -7,10 +7,12 @@
   <!-- Romantic Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
   <style>
+    html, body {
+      height: 100%;
+    }
     body {
-      min-height: 100vh;
       margin: 0;
-      padding: 0;
+      min-height: 100vh;
       background: url('lotus.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'quicksand', Arial, sans-serif;
@@ -18,6 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
     }
     .container {
       background: rgba(255,255,255,0.16);
@@ -26,17 +29,15 @@
       padding: 2.1rem 1.3rem 2.4rem 1.3rem;
       max-width: 700px;
       width: 98vw;
-      margin: 2.5rem auto 2.5rem auto;
+      margin: 2.5rem auto;
       backdrop-filter: blur(5px);
       border: 2px solid rgba(255,182,213,0.22);
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
     }
     .home-btn {
-      display: inline-block;
-      margin: 0 0 2rem 0;
+      margin-bottom: 2rem;
       padding: 0.65rem 1.4rem;
       background: transparent;
       border: 2.5px solid #ffb6d5;
@@ -45,26 +46,22 @@
       font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
       font-size: 1.17rem;
       font-weight: 700;
-      text-align: center;
       text-decoration: none;
       letter-spacing: 0.01em;
       box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
-      transition:
-        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
-        transform 0.2s cubic-bezier(.4,0,.2,1),
-        background 0.22s cubic-bezier(.4,0,.2,1),
-        color 0.18s cubic-bezier(.4,0,.2,1);
+      transition: box-shadow 0.22s, background 0.22s, color 0.18s, transform 0.2s;
+      outline: none;
+      display: inline-block;
     }
     .home-btn:hover, .home-btn:focus {
       background: rgba(255, 182, 213, 0.33);
       color: #a70042;
-      box-shadow: 0 0 18px 4px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
+      box-shadow: 0 0 18px 4px #ffb6d5;
       transform: scale(1.04);
-      outline: none;
     }
     .carousel-container {
       width: 100%;
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto 1.7rem auto;
       position: relative;
       display: flex;
@@ -151,7 +148,6 @@
       justify-content: center;
       gap: 0.37rem;
       margin-top: 0.35rem;
-      margin-bottom: 0.1rem;
       flex-wrap: wrap;
     }
     .carousel-dot {
@@ -316,7 +312,6 @@
       box-shadow: 0 0 9px 2px #ffb6d5;
       outline: none;
     }
-    /* Only show close btn (X) on mobile/touch when controls are shown */
     @media (pointer: coarse), (max-width: 510px) {
       .music-controls .music-close-btn {
         display: flex;
@@ -338,9 +333,8 @@
 </head>
 <body>
   <!--
-    === IMAGE CAROUSEL (Romantic Lotus Theme) ===
-    JS/HTML comments:
-    - To add/remove images: set imageCount in JS and add/remove files in /images/ with names 1.jpg, 2.jpg, etc.
+    === CAROUSEL CONFIGURATION ===
+    - To add/remove images: set imageCount in JS and add/remove files in /images/ as 1.jpg, 2.jpg, ...
     - To change transition speed: set autoSlideInterval (ms) in JS (default 6000)
     - To customize captions: edit getCaption(idx) in JS
     - All IDs/classes/paths are lowercase for case-sensitive hosting
@@ -374,9 +368,9 @@
 
   <div class="container">
     <a href="index.html" class="home-btn">Home</a>
-    <div class="carousel-container" id="carousel-container">
+    <div class="carousel-container">
       <div class="carousel-image-wrapper" id="carousel-image-wrapper">
-        <!-- Images are loaded by JS -->
+        <!-- Images loaded by JS -->
         <button class="carousel-arrow left" id="carousel-prev" aria-label="Imaginea anterioară">&#8249;</button>
         <button class="carousel-arrow right" id="carousel-next" aria-label="Imaginea următoare">&#8250;</button>
       </div>
@@ -385,76 +379,43 @@
     </div>
   </div>
   <script>
-    /*
-      === IMAGE CAROUSEL CONFIGURATION ===
-      To add/remove images:
-        - Place images in /images/ as 1.jpg, 2.jpg, ... (case sensitive, up to imageCount)
-        - Set imageCount to the number of images
-      To change auto-slide speed:
-        - Change autoSlideInterval (ms, e.g. 6000 = 6 seconds; set to 0 to disable)
-      To customize captions:
-        - Edit getCaption(idx) to customize per-image captions
-      All IDs/classes/paths are lowercase for case-sensitive hosting
-    */
-
-    const imageCount = 15; // Number of images in /images/1.jpg ... /images/15.jpg
-    const autoSlideInterval = 6000; // ms (set to 0 to disable auto-slide)
-    const transitionTime = 700; // ms, must match .carousel-image transition
-
-    // Optional: Custom captions per image
+    // -- CAROUSEL CONFIGURATION AND LOGIC --
+    // To add/remove images: adjust imageCount and keep images in /images/1.jpg, 2.jpg, ... (case sensitive)
+    // To change transition speed: update autoSlideInterval (ms)
+    // To customize captions: edit getCaption(idx)
+    const imageCount = 15; // number of images
+    const autoSlideInterval = 6000; // ms (set to 0 to disable)
     function getCaption(idx) {
-      // idx is 0-based
-      // To set custom captions, use:
-      // if(idx===0) return "Prima imagine";
-      // else if(idx===1) return "Imaginea specială";
-      // else ...
+      // Customize captions here
       return `Imaginea ${idx+1}`;
     }
-
-    // --- Carousel Logic ---
-    const carouselWrapper = document.getElementById('carousel-image-wrapper');
+    const wrapper = document.getElementById('carousel-image-wrapper');
     const indicators = document.getElementById('carousel-indicators');
     const caption = document.getElementById('carousel-caption');
-    const prevBtnC = document.getElementById('carousel-prev');
-    const nextBtnC = document.getElementById('carousel-next');
-    let currentImg = 0;
-    let images = [];
-    let dots = [];
-    let autoSlideTimer = null;
-    let startX = 0, moveX = 0;
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    let currentImg = 0, images = [], dots = [], timer = null, startX = 0, moveX = 0;
 
-    // Load images
-    function loadCarouselImages() {
+    function buildCarousel() {
       for (let i = 0; i < imageCount; i++) {
         const img = document.createElement('img');
         img.src = `images/${i+1}.jpg`;
-        img.className = 'carousel-image';
+        img.className = 'carousel-image' + (i === 0 ? ' active' : '');
         img.draggable = false;
-        if (i === 0) img.classList.add('active');
-        carouselWrapper.appendChild(img);
+        wrapper.appendChild(img);
         images.push(img);
-        // Preload next image for smoothness
-        if (i < imageCount-1) {
-          const preload = new Image();
-          preload.src = `images/${i+2}.jpg`;
-        }
-      }
-      setCaption(0);
-    }
-    function setCaption(idx) {
-      caption.textContent = getCaption(idx);
-    }
-    // Create dots
-    function createDots() {
-      for (let i = 0; i < imageCount; i++) {
+        // preload next for smoothness
+        if (i < imageCount-1) { new Image().src = `images/${i+2}.jpg`; }
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => showImage(i));
+        dot.addEventListener('click', () => showImg(i));
         indicators.appendChild(dot);
         dots.push(dot);
       }
+      setCaption(0);
     }
-    function showImage(idx) {
+    function setCaption(idx) { caption.textContent = getCaption(idx); }
+    function showImg(idx) {
       if (idx < 0) idx = imageCount-1;
       if (idx >= imageCount) idx = 0;
       images[currentImg].classList.remove('active');
@@ -464,75 +425,40 @@
       setCaption(idx);
       currentImg = idx;
     }
-    function prevImage() {
-      showImage(currentImg - 1);
-      resetAutoSlide();
-    }
-    function nextImage() {
-      showImage(currentImg + 1);
-      resetAutoSlide();
-    }
-    prevBtnC.addEventListener('click', prevImage);
-    nextBtnC.addEventListener('click', nextImage);
-
-    // Swipe support
-    carouselWrapper.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 1) startX = e.touches[0].clientX;
-    });
-    carouselWrapper.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 1) moveX = e.touches[0].clientX;
-    });
-    carouselWrapper.addEventListener('touchend', function(e) {
+    function prevImg() { showImg(currentImg - 1); resetAuto(); }
+    function nextImg() { showImg(currentImg + 1); resetAuto(); }
+    prevBtn.onclick = prevImg;
+    nextBtn.onclick = nextImg;
+    wrapper.addEventListener('touchstart', e => { if (e.touches.length === 1) startX = e.touches[0].clientX; });
+    wrapper.addEventListener('touchmove', e => { if (e.touches.length === 1) moveX = e.touches[0].clientX; });
+    wrapper.addEventListener('touchend', () => {
       let dx = moveX - startX;
-      if (Math.abs(dx) > 35) {
-        if (dx > 0) prevImage();
-        else nextImage();
-      }
+      if (Math.abs(dx) > 35) { if (dx > 0) prevImg(); else nextImg(); }
       startX = moveX = 0;
     });
-
-    // Keyboard navigation
-    window.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') prevImage();
-      if (e.key === 'ArrowRight') nextImage();
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') prevImg();
+      if (e.key === 'ArrowRight') nextImg();
     });
-
-    // Auto-slide
-    function startAutoSlide() {
-      if (autoSlideInterval > 0) {
-        autoSlideTimer = setInterval(() => {
-          nextImage();
-        }, autoSlideInterval);
-      }
+    function startAuto() {
+      if (autoSlideInterval > 0)
+        timer = setInterval(() => nextImg(), autoSlideInterval);
     }
-    function resetAutoSlide() {
-      if (autoSlideTimer) clearInterval(autoSlideTimer);
-      startAutoSlide();
-    }
+    function resetAuto() { if (timer) clearInterval(timer); startAuto(); }
+    buildCarousel(); startAuto();
 
-    // Init carousel
-    loadCarouselImages();
-    createDots();
-    startAutoSlide();
-
-
-    // === MUSIC PLAYER LOGIC ===
-    // --- PLAYLIST SETUP ---
-    // To add/remove songs: edit playlist array below.
-    // To set display name: edit 'title' property.
-    // To adjust starting volume: change DEFAULT_VOLUME (0.0 to 1.0).
+    // -- MUSIC PLAYER LOGIC (same as index.html) --
     const playlist = [
       { src: 'preput.mp3', title: 'Preput' },
       { src: 'lotus_ambient.mp3', title: 'I Wanna Be Yours' }
     ];
     const DEFAULT_VOLUME = 0.3;
     const AUTOPLAY = true;
-
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('playpause-btn');
     const playPauseIcon = document.getElementById('playpause-icon');
-    const nextBtn = document.getElementById('next-btn');
-    const prevBtn = document.getElementById('prev-btn');
+    const nextBtnM = document.getElementById('next-btn');
+    const prevBtnM = document.getElementById('prev-btn');
     const seekbar = document.getElementById('seekbar');
     const currentTimeEl = document.getElementById('current-time');
     const durationEl = document.getElementById('duration');
@@ -542,11 +468,7 @@
     const controls = document.getElementById('music-controls');
     const iconBtn = document.getElementById('music-icon-btn');
     const closeBtn = document.getElementById('music-close-btn');
-
-    // --- PLAYLIST STATE ---
-    let currentTrack = 0;
-    let seekbarChanging = false;
-
+    let currentTrack = 0, seekbarChanging = false;
     function loadTrack(idx, autoPlay = false) {
       if (idx < 0) idx = playlist.length - 1;
       if (idx >= playlist.length) idx = 0;
@@ -556,13 +478,9 @@
       seekbar.value = 0;
       currentTimeEl.textContent = '0:00';
       durationEl.textContent = '0:00';
-      if (autoPlay) {
-        audio.play();
-      } else {
-        updatePlayPause();
-      }
+      if (autoPlay) audio.play();
+      else updatePlayPause();
     }
-
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationEl.textContent = formatTime(audio.duration);
@@ -573,51 +491,25 @@
         currentTimeEl.textContent = formatTime(audio.currentTime);
       }
     });
-    audio.addEventListener('ended', () => {
-      loadTrack(currentTrack + 1, true);
-    });
-
+    audio.addEventListener('ended', () => { loadTrack(currentTrack + 1, true); });
     function updatePlayPause() {
       playPauseIcon.innerHTML = audio.paused ? '&#9654;' : '&#10073;&#10073;';
     }
-    playPauseBtn.addEventListener('click', () => {
-      if (audio.paused) audio.play();
-      else audio.pause();
-      updatePlayPause();
-    });
+    playPauseBtn.onclick = () => { audio.paused ? audio.play() : audio.pause(); updatePlayPause(); };
     audio.addEventListener('play', updatePlayPause);
     audio.addEventListener('pause', updatePlayPause);
-
-    nextBtn.addEventListener('click', () => {
-      loadTrack(currentTrack + 1, !audio.paused);
-    });
-    prevBtn.addEventListener('click', () => {
-      loadTrack(currentTrack - 1, !audio.paused);
-    });
-
-    seekbar.addEventListener('input', function() {
-      seekbarChanging = true;
-      currentTimeEl.textContent = formatTime(this.value);
-    });
-    seekbar.addEventListener('change', function() {
-      audio.currentTime = this.value;
-      seekbarChanging = false;
-    });
-
-    volumeSlider.addEventListener('input', function() {
-      audio.volume = this.value;
-    });
-    audio.volume = DEFAULT_VOLUME;
-    volumeSlider.value = DEFAULT_VOLUME;
-
+    nextBtnM.onclick = () => { loadTrack(currentTrack + 1, !audio.paused); };
+    prevBtnM.onclick = () => { loadTrack(currentTrack - 1, !audio.paused); };
+    seekbar.oninput = function() { seekbarChanging = true; currentTimeEl.textContent = formatTime(this.value); };
+    seekbar.onchange = function() { audio.currentTime = this.value; seekbarChanging = false; };
+    volumeSlider.oninput = function() { audio.volume = this.value; };
+    audio.volume = DEFAULT_VOLUME; volumeSlider.value = DEFAULT_VOLUME;
     function formatTime(sec) {
       sec = Math.floor(sec);
       const m = Math.floor(sec / 60);
       const s = sec % 60;
       return `${m}:${s.toString().padStart(2, '0')}`;
     }
-
-    // --- AUTOPLAY HANDLING ---
     let audioInitiated = false;
     function unlockAudio() {
       if (!audioInitiated && AUTOPLAY) {
@@ -628,62 +520,23 @@
     }
     document.body.addEventListener('click', unlockAudio, {once:true});
     document.body.addEventListener('touchstart', unlockAudio, {once:true});
-
-    // --- UI BUBBLE BEHAVIOR ---
-    let isMobile = false;
+    let isMobile = false, controlsVisible = false;
     function detectMobile() {
       isMobile = window.matchMedia("(pointer: coarse)").matches;
-      if (isMobile && controlsVisible) {
-        closeBtn.style.display = 'flex';
-      } else {
-        closeBtn.style.display = 'none';
-      }
+      closeBtn.style.display = (isMobile && controlsVisible) ? 'flex' : 'none';
     }
     detectMobile();
     window.addEventListener('resize', detectMobile);
-
-    let controlsVisible = false;
-    function showControls() {
-      bubble.classList.add('show-controls');
-      controlsVisible = true;
-      detectMobile();
-    }
-    function hideControls() {
-      bubble.classList.remove('show-controls');
-      controlsVisible = false;
-      detectMobile();
-    }
-    bubble.addEventListener('mouseenter', function() {
-      if (!isMobile) showControls();
-    });
-    bubble.addEventListener('mouseleave', function() {
-      if (!isMobile) hideControls();
-    });
-    iconBtn.addEventListener('click', function(e) {
-      if (isMobile) {
-        if (controlsVisible) hideControls();
-        else showControls();
-        e.stopPropagation();
-      }
-    });
-    closeBtn.addEventListener('click', function(e) {
-      hideControls();
-      e.stopPropagation();
-    });
-    document.addEventListener('click', function(e) {
-      if (isMobile && controlsVisible && !bubble.contains(e.target)) {
-        hideControls();
-      }
-    });
-    window.addEventListener('keydown', function(e) {
-      if(isMobile && controlsVisible && e.key === "Escape") {
-        hideControls();
-      }
-    });
+    function showControls() { bubble.classList.add('show-controls'); controlsVisible = true; detectMobile(); }
+    function hideControls() { bubble.classList.remove('show-controls'); controlsVisible = false; detectMobile(); }
+    bubble.addEventListener('mouseenter', function() { if (!isMobile) showControls(); });
+    bubble.addEventListener('mouseleave', function() { if (!isMobile) hideControls(); });
+    iconBtn.onclick = function(e) { if (isMobile) { controlsVisible ? hideControls() : showControls(); e.stopPropagation(); } };
+    closeBtn.onclick = function(e) { hideControls(); e.stopPropagation(); };
+    document.addEventListener('click', function(e) { if (isMobile && controlsVisible && !bubble.contains(e.target)) hideControls(); });
+    window.addEventListener('keydown', function(e) { if(isMobile && controlsVisible && e.key === "Escape") hideControls(); });
     iconBtn.type = 'button';
-
-    loadTrack(0, false);
-    updatePlayPause();
+    loadTrack(0, false); updatePlayPause();
   </script>
 </body>
 </html>
