@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>principal - lotus love</title>
-  <!-- Romantic Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
+  <!-- Font Consistency -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     body {
       min-height: 100vh;
@@ -13,7 +13,7 @@
       padding: 0;
       background: url('lotus.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'quicksand', Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
       color: #a70042;
       display: flex;
       align-items: center;
@@ -57,7 +57,7 @@
       border-radius: 18px;
       border: 2.5px solid #ffb6d5;
       font-size: 1.27rem;
-      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
+      font-family: 'Great Vibes', cursive, 'Open Sans', sans-serif;
       font-weight: 700;
       cursor: pointer;
       background: #ffb6d5;
@@ -80,38 +80,6 @@
       color: #a70042;
       transform: scale(1.04);
     }
-    .outline-btn {
-      width: 210px;
-      min-width: 130px;
-      max-width: 100%;
-      padding: 0.95rem 1.1rem;
-      border-radius: 18px;
-      border: 2.5px solid #ffb6d5;
-      font-size: 1.13rem;
-      font-family: 'quicksand', Arial, sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      margin: 0;
-      background: transparent;
-      color: #a70042;
-      transition:
-        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
-        transform 0.2s cubic-bezier(.4,0,.2,1),
-        background 0.22s cubic-bezier(.4,0,.2,1),
-        color 0.18s cubic-bezier(.4,0,.2,1);
-      letter-spacing: 0.01em;
-      outline: none;
-      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
-      user-select: none;
-      border-bottom: 3px solid #ffd6e7;
-      background: rgba(255, 182, 213, 0.12);
-    }
-    .outline-btn:hover, .outline-btn:focus {
-      box-shadow: 0 0 18px 4px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
-      background: rgba(255, 182, 213, 0.33);
-      color: #a70042;
-      transform: scale(1.04);
-    }
     .romantic-btn {
       width: 210px;
       min-width: 130px;
@@ -120,7 +88,7 @@
       border-radius: 18px;
       border: 2.5px solid #ffb6d5;
       font-size: 1.13rem;
-      font-family: 'quicksand', Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
       font-weight: 700;
       cursor: not-allowed;
       margin: 0;
@@ -141,7 +109,7 @@
     @media (max-width: 700px) {
       .container { max-width: 98vw; }
       .button-grid { gap: 1.1rem; }
-      .romantic-btn, .main-btn, .outline-btn { width: 97vw; max-width: 350px; min-width: 110px; }
+      .romantic-btn, .main-btn { width: 97vw; max-width: 350px; min-width: 110px; }
     }
     @media (max-width: 490px) {
       .container {
@@ -153,7 +121,7 @@
         gap: 1.6rem;
       }
       .button-col { width: 100%; }
-      .romantic-btn, .main-btn, .outline-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
+      .romantic-btn, .main-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
     }
     /* --- Music Bubble --- */
     .music-bubble {
@@ -164,7 +132,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      font-family: 'quicksand', Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
     }
     .music-icon-btn {
       background: rgba(255, 182, 213, 0.95);
@@ -245,7 +213,7 @@
     .music-title {
       text-align: center;
       font-size: 1.07rem;
-      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
+      font-family: 'Great Vibes', cursive, 'Open Sans', sans-serif;
       color: #d4006f;
       margin-bottom: 0.41rem;
       margin-top: -0.16rem;
@@ -274,33 +242,23 @@
       text-align: center;
       user-select: none;
     }
-    .music-close-btn {
+    .music-close-btn, .mobile-x-button {
       display: none;
       position: absolute;
       top: 10px;
       right: 10px;
-      width: 28px;
-      height: 28px;
-      background: #ffb6d5;
-      color: #a70042;
+      background: transparent;
       border: none;
-      border-radius: 50%;
-      font-size: 1.17rem;
+      font-size: 1.4rem;
+      color: #fff;
       cursor: pointer;
-      z-index: 99;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 7px 0 #ffd6e7c0;
-      transition: background 0.15s, color 0.15s, box-shadow 0.18s, opacity 0.22s;
-      opacity: 0.92;
+      z-index: 1000;
     }
-    .music-close-btn:focus, .music-close-btn:hover {
-      background: #ffd6e7;
-      color: #d4006f;
-      box-shadow: 0 0 9px 2px #ffb6d5;
-      outline: none;
+    @media (max-width: 768px), (hover: none) {
+      .mobile-x-button {
+        display: block;
+      }
     }
-    /* Only show close btn (X) on mobile/touch when controls are shown */
     @media (pointer: coarse), (max-width: 510px) {
       .music-controls .music-close-btn {
         display: flex;
@@ -310,7 +268,7 @@
     @media (max-width: 700px) {
       .container { max-width: 98vw; }
       .button-grid { gap: 1.1rem; }
-      .romantic-btn, .main-btn, .outline-btn { width: 97vw; max-width: 350px; min-width: 110px; }
+      .romantic-btn, .main-btn { width: 97vw; max-width: 350px; min-width: 110px; }
     }
     @media (max-width: 490px) {
       .container {
@@ -322,7 +280,7 @@
         gap: 1.6rem;
       }
       .button-col { width: 100%; }
-      .romantic-btn, .main-btn, .outline-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
+      .romantic-btn, .main-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
     }
   </style>
 </head>
@@ -331,7 +289,7 @@
   <audio id="audio-player"></audio>
   <div class="music-bubble" id="music-bubble">
     <div class="music-controls" id="music-controls">
-      <button class="music-close-btn" id="music-close-btn" title="închide">&#10005;</button>
+      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
       <div class="music-title" id="music-title">Preput</div>
       <div class="music-controls-row">
         <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
@@ -364,19 +322,19 @@
             Mesajul meu pentru tine &lt;3
           </button>
         </a>
-        <!-- Below: 3 Coming Soon buttons -->
-        <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
+        <!-- Place Galerie foto button directly after the first button -->
+        <a href="carusel.html" style="text-decoration:none; width:100%;">
+          <button class="main-btn" style="width:100%">
+            Galerie foto
+          </button>
+        </a>
+        <!-- Below: 2 Coming Soon buttons -->
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
       </div>
       <div class="button-col">
-        <!-- Top-right: Galerie foto -->
-        <a href="carusel.html" style="text-decoration:none; width:100%;">
-          <button class="outline-btn" style="width:100%">
-            Galerie foto
-          </button>
-        </a>
-        <!-- Below: 3 more Coming Soon buttons -->
+        <!-- 4 Coming Soon buttons -->
+        <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
@@ -385,19 +343,13 @@
   </div>
 
   <script>
-    // === MUSIC PLAYER LOGIC ===
-    // --- PLAYLIST SETUP ---
-    // To change order, change the order in playlist array.
-    // To add a song: {src: 'filename.mp3', title: 'Display Name'}
-    // To set display name: change 'title' property.
-    // To adjust starting volume: change DEFAULT_VOLUME (0.0 to 1.0).
+    // --- Music Player JS ---
     const playlist = [
       { src: 'preput.mp3', title: 'Preput' },
       { src: 'lotus_ambient.mp3', title: 'I Wanna Be Yours' }
     ];
     const DEFAULT_VOLUME = 0.3;
     const AUTOPLAY = true;
-
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('playpause-btn');
     const playPauseIcon = document.getElementById('playpause-icon');
@@ -411,12 +363,9 @@
     const bubble = document.getElementById('music-bubble');
     const controls = document.getElementById('music-controls');
     const iconBtn = document.getElementById('music-icon-btn');
-    const closeBtn = document.getElementById('music-close-btn');
+    const closeMobileBtn = document.getElementById('close-mobile-controls');
 
-    // --- PLAYLIST STATE ---
-    let currentTrack = 0;
-    let seekbarChanging = false;
-
+    let currentTrack = 0, seekbarChanging = false, controlsVisible = false, isMobile = false;
     function loadTrack(idx, autoPlay = false) {
       if (idx < 0) idx = playlist.length - 1;
       if (idx >= playlist.length) idx = 0;
@@ -426,13 +375,9 @@
       seekbar.value = 0;
       currentTimeEl.textContent = '0:00';
       durationEl.textContent = '0:00';
-      if (autoPlay) {
-        audio.play();
-      } else {
-        updatePlayPause();
-      }
+      if (autoPlay) audio.play();
+      else updatePlayPause();
     }
-
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationEl.textContent = formatTime(audio.duration);
@@ -443,51 +388,25 @@
         currentTimeEl.textContent = formatTime(audio.currentTime);
       }
     });
-    audio.addEventListener('ended', () => {
-      loadTrack(currentTrack + 1, true);
-    });
-
+    audio.addEventListener('ended', () => { loadTrack(currentTrack + 1, true); });
     function updatePlayPause() {
       playPauseIcon.innerHTML = audio.paused ? '&#9654;' : '&#10073;&#10073;';
     }
-    playPauseBtn.addEventListener('click', () => {
-      if (audio.paused) audio.play();
-      else audio.pause();
-      updatePlayPause();
-    });
+    playPauseBtn.onclick = () => { audio.paused ? audio.play() : audio.pause(); updatePlayPause(); };
     audio.addEventListener('play', updatePlayPause);
     audio.addEventListener('pause', updatePlayPause);
-
-    nextBtn.addEventListener('click', () => {
-      loadTrack(currentTrack + 1, !audio.paused);
-    });
-    prevBtn.addEventListener('click', () => {
-      loadTrack(currentTrack - 1, !audio.paused);
-    });
-
-    seekbar.addEventListener('input', function() {
-      seekbarChanging = true;
-      currentTimeEl.textContent = formatTime(this.value);
-    });
-    seekbar.addEventListener('change', function() {
-      audio.currentTime = this.value;
-      seekbarChanging = false;
-    });
-
-    volumeSlider.addEventListener('input', function() {
-      audio.volume = this.value;
-    });
-    audio.volume = DEFAULT_VOLUME;
-    volumeSlider.value = DEFAULT_VOLUME;
-
+    nextBtn.onclick = () => { loadTrack(currentTrack + 1, !audio.paused); };
+    prevBtn.onclick = () => { loadTrack(currentTrack - 1, !audio.paused); };
+    seekbar.oninput = function() { seekbarChanging = true; currentTimeEl.textContent = formatTime(this.value); };
+    seekbar.onchange = function() { audio.currentTime = this.value; seekbarChanging = false; };
+    volumeSlider.oninput = function() { audio.volume = this.value; };
+    audio.volume = DEFAULT_VOLUME; volumeSlider.value = DEFAULT_VOLUME;
     function formatTime(sec) {
       sec = Math.floor(sec);
       const m = Math.floor(sec / 60);
       const s = sec % 60;
       return `${m}:${s.toString().padStart(2, '0')}`;
     }
-
-    // --- AUTOPLAY HANDLING ---
     let audioInitiated = false;
     function unlockAudio() {
       if (!audioInitiated && AUTOPLAY) {
@@ -498,62 +417,24 @@
     }
     document.body.addEventListener('click', unlockAudio, {once:true});
     document.body.addEventListener('touchstart', unlockAudio, {once:true});
-
-    // --- UI BUBBLE BEHAVIOR ---
-    let isMobile = false;
     function detectMobile() {
-      isMobile = window.matchMedia("(pointer: coarse)").matches;
-      if (isMobile && controlsVisible) {
-        closeBtn.style.display = 'flex';
-      } else {
-        closeBtn.style.display = 'none';
-      }
+      isMobile = window.matchMedia("(pointer: coarse), (max-width:768px)").matches;
     }
     detectMobile();
     window.addEventListener('resize', detectMobile);
-
-    let controlsVisible = false;
-    function showControls() {
-      bubble.classList.add('show-controls');
-      controlsVisible = true;
-      detectMobile();
-    }
-    function hideControls() {
-      bubble.classList.remove('show-controls');
-      controlsVisible = false;
-      detectMobile();
-    }
-    bubble.addEventListener('mouseenter', function() {
-      if (!isMobile) showControls();
-    });
-    bubble.addEventListener('mouseleave', function() {
-      if (!isMobile) hideControls();
-    });
-    iconBtn.addEventListener('click', function(e) {
-      if (isMobile) {
-        if (controlsVisible) hideControls();
-        else showControls();
-        e.stopPropagation();
-      }
-    });
-    closeBtn.addEventListener('click', function(e) {
+    function showControls() { bubble.classList.add('show-controls'); controlsVisible = true; }
+    function hideControls() { bubble.classList.remove('show-controls'); controlsVisible = false; }
+    bubble.addEventListener('mouseenter', function() { if (!isMobile) showControls(); });
+    bubble.addEventListener('mouseleave', function() { if (!isMobile) hideControls(); });
+    iconBtn.onclick = function(e) { if (isMobile) { controlsVisible ? hideControls() : showControls(); e.stopPropagation(); } };
+    closeMobileBtn.addEventListener("click", function () {
       hideControls();
-      e.stopPropagation();
+      controls.classList.remove("expanded");
     });
-    document.addEventListener('click', function(e) {
-      if (isMobile && controlsVisible && !bubble.contains(e.target)) {
-        hideControls();
-      }
-    });
-    window.addEventListener('keydown', function(e) {
-      if(isMobile && controlsVisible && e.key === "Escape") {
-        hideControls();
-      }
-    });
+    document.addEventListener('click', function(e) { if (isMobile && controlsVisible && !bubble.contains(e.target)) hideControls(); });
+    window.addEventListener('keydown', function(e) { if(isMobile && controlsVisible && e.key === "Escape") hideControls(); });
     iconBtn.type = 'button';
-
-    loadTrack(0, false);
-    updatePlayPause();
+    loadTrack(0, false); updatePlayPause();
   </script>
 </body>
 </html>
