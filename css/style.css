@@ -6,7 +6,6 @@
 /* Blocky/pixel font for Dino button - replace URL below to use a different pixel font if needed */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* To replace this font, update this import and .dino-btn font-family */
 
-/* --- BACKGROUND FIX: full-screen lotus image --- */
 body {
   background: url('images/lotus.jpg') no-repeat center center fixed;
   background-size: cover;
