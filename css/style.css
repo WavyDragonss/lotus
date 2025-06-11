@@ -1,19 +1,26 @@
 /* style.css - Shared for all pages, music player, carousel, buttons, etc. */
 
 /* -- Fonts and body -- */
-body {
+html, body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: url('lotus.jpg') no-repeat center center fixed;
+  height: 100%;
+  width: 100%;
+}
+body {
+  /* Use relative path so it works from both index.html and carusel.html */
+  background: url('../lotus.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Great Vibes', cursive, 'Open Sans', sans-serif;
   color: #a70042;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
 }
-
 /* -- Container -- */
 .container {
   background: rgba(255,255,255,0.16);
