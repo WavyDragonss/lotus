@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galerie foto - Lotus Love</title>
+  <title>galerie foto - lotus love</title>
   <!-- Romantic Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
   <style>
@@ -23,9 +23,9 @@
       background: rgba(255,255,255,0.16);
       border-radius: 30px;
       box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16);
-      padding: 2.1rem 1.5rem 2.2rem 1.5rem;
-      max-width: 490px;
-      width: 96vw;
+      padding: 2.1rem 1.3rem 2.4rem 1.3rem;
+      max-width: 700px;
+      width: 98vw;
       margin: 2.5rem auto 2.5rem auto;
       backdrop-filter: blur(5px);
       border: 2px solid rgba(255,182,213,0.22);
@@ -34,122 +34,16 @@
       justify-content: center;
       align-items: center;
     }
-    .carousel-container {
-      width: 100%;
-      max-width: 370px;
-      margin: 0 auto 1.9rem auto;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .carousel-image-wrapper {
-      width: 100%;
-      aspect-ratio: 4/3;
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      box-shadow: 0 2px 22px 0 rgba(255,182,213,0.14);
-      background: rgba(255,255,255,0.19);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.9rem;
-    }
-    .carousel-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      position: absolute;
-      left: 0;
-      top: 0;
-      pointer-events: none;
-      z-index: 0;
-      transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
-    }
-    .carousel-image.active {
-      opacity: 1;
-      position: relative;
-      pointer-events: auto;
-      z-index: 1;
-    }
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,182,213,0.92);
-      border: none;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 1.7rem;
-      color: #a70042;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 7px 0 rgba(255,182,213,0.13);
-      cursor: pointer;
-      z-index: 2;
-      transition: box-shadow 0.14s, background 0.15s, color 0.15s, transform 0.13s;
-      opacity: 0.89;
-      user-select: none;
-    }
-    .carousel-arrow:hover, .carousel-arrow:focus {
-      background: #ffd6e7;
-      box-shadow: 0 0 12px 2px #ffb6d5;
-      color: #d4006f;
-      transform: scale(1.07);
-      outline: none;
-    }
-    .carousel-arrow.left { left: 8px; }
-    .carousel-arrow.right { right: 8px; }
-    .carousel-caption {
-      margin-top: 0.7rem;
-      font-size: 1.10rem;
-      color: #a70042e6;
-      font-family: 'Dancing Script', cursive, 'quicksand', Arial, sans-serif;
-      text-align: center;
-      text-shadow: 0 1px 8px #ffd6e7b0;
-      letter-spacing: 0.01em;
-      font-weight: 700;
-      min-height: 1.8em;
-      user-select: none;
-    }
-    .carousel-indicators {
-      display: flex;
-      justify-content: center;
-      gap: 0.37rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.1rem;
-    }
-    .carousel-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ffd6e7;
-      opacity: 0.6;
-      transition: opacity 0.22s, box-shadow 0.22s;
-      cursor: pointer;
-      box-shadow: 0 1px 2px 0 rgba(255,182,213,0.13);
-      border: none;
-      outline: none;
-    }
-    .carousel-dot.active {
-      opacity: 1;
-      background: #ffb6d5;
-      box-shadow: 0 0 6px 2px #ffb6d5b8;
-    }
     .home-btn {
       display: inline-block;
-      margin: 1.15rem auto 0.2rem auto;
+      margin: 0 0 2rem 0;
       padding: 0.65rem 1.4rem;
       background: transparent;
       border: 2.5px solid #ffb6d5;
       color: #a70042;
       border-radius: 15px;
       font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
-      font-size: 1.11rem;
+      font-size: 1.17rem;
       font-weight: 700;
       text-align: center;
       text-decoration: none;
@@ -168,31 +62,321 @@
       transform: scale(1.04);
       outline: none;
     }
-    @media (max-width: 700px) {
-      .container { max-width: 99vw; padding: 1.2rem 0.3rem 1.2rem 0.3rem;}
-      .carousel-container { max-width: 99vw; }
+    .carousel-container {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto 1.7rem auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    @media (max-width: 430px) {
-      .carousel-container { max-width: 98vw; }
-      .carousel-image-wrapper { border-radius: 11px; }
+    .carousel-image-wrapper {
+      width: 100%;
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      box-shadow: 0 2px 22px 0 rgba(255,182,213,0.14);
+      background: rgba(255,255,255,0.19);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+      min-height: 220px;
+    }
+    .carousel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+      background: transparent;
+    }
+    .carousel-image.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,182,213,0.88);
+      border: none;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      font-size: 2.1rem;
+      color: #a70042;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 7px 0 rgba(255,182,213,0.13);
+      cursor: pointer;
+      z-index: 2;
+      transition: box-shadow 0.14s, background 0.15s, color 0.15s, transform 0.13s;
+      opacity: 0.93;
+      user-select: none;
+    }
+    .carousel-arrow:hover, .carousel-arrow:focus {
+      background: #ffd6e7;
+      box-shadow: 0 0 12px 2px #ffb6d5;
+      color: #d4006f;
+      transform: scale(1.09);
+      outline: none;
+    }
+    .carousel-arrow.left { left: 10px; }
+    .carousel-arrow.right { right: 10px; }
+    .carousel-caption {
+      margin-top: 0.75rem;
+      font-size: 1.15rem;
+      color: #a70042e6;
+      font-family: 'Dancing Script', cursive, 'quicksand', Arial, sans-serif;
+      text-align: center;
+      text-shadow: 0 1px 8px #ffd6e7b0;
+      letter-spacing: 0.01em;
+      font-weight: 700;
+      min-height: 1.8em;
+      user-select: none;
+    }
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.37rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.1rem;
+      flex-wrap: wrap;
+    }
+    .carousel-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #ffd6e7;
+      opacity: 0.6;
+      transition: opacity 0.22s, box-shadow 0.22s;
+      cursor: pointer;
+      box-shadow: 0 1px 2px 0 rgba(255,182,213,0.13);
+      border: none;
+      outline: none;
+    }
+    .carousel-dot.active {
+      opacity: 1;
+      background: #ffb6d5;
+      box-shadow: 0 0 6px 2px #ffb6d5b8;
+    }
+    /* --- Music Bubble --- */
+    .music-bubble {
+      position: fixed;
+      bottom: 24px;
+      right: 18px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-family: 'quicksand', Arial, sans-serif;
+    }
+    .music-icon-btn {
+      background: rgba(255, 182, 213, 0.95);
+      color: #a70042;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.18);
+      transition: box-shadow 0.22s, background 0.22s;
+      outline: none;
+      position: relative;
+    }
+    .music-icon-btn:focus, .music-icon-btn:hover {
+      background: #ffd6e7;
+      box-shadow: 0 0 18px 2px #ffb6d5, 0 2px 12px 0 rgba(255, 182, 193, 0.22);
+    }
+    .music-controls {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 22px;
+      box-shadow: 0 4px 16px 0 rgba(255,182,213,0.19);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.38rem;
+      padding: 0.9rem 1.16rem 0.9rem 1.16rem;
+      margin-bottom: 0.4rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px) scale(0.98);
+      transition:
+        opacity 0.36s cubic-bezier(.4,0,.2,1),
+        transform 0.31s cubic-bezier(.4,0,.2,1);
+      min-width: 212px;
+      width: 265px;
+      max-width: 96vw;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .music-bubble.show-controls .music-controls,
+    .music-bubble:hover .music-controls {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1.03);
+    }
+    .music-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.62rem;
+      margin: 0.2rem 0 0.2rem 0;
+    }
+    .music-btn {
+      background: #ffb6d5;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.18rem;
+      color: #a70042;
+      cursor: pointer;
+      transition: box-shadow 0.16s, background 0.16s, color 0.16s;
+      outline: none;
+    }
+    .music-btn:hover, .music-btn:focus {
+      background: #ffd6e7;
+      color: #ab005a;
+      box-shadow: 0 0 8px 0 #ffb6d5;
+    }
+    .music-title {
+      text-align: center;
+      font-size: 1.07rem;
+      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
+      color: #d4006f;
+      margin-bottom: 0.41rem;
+      margin-top: -0.16rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 4px #ffd6e7a0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .music-slider, .music-seekbar {
+      accent-color: #ffb6d5;
+      background: transparent;
+      border-radius: 6px;
+      outline: none;
+      height: 5px;
+      cursor: pointer;
+      margin: 0 0.2rem;
+    }
+    .music-slider { width: 78px; }
+    .music-seekbar { width: 120px; }
+    .music-time {
+      font-size: 0.89rem;
+      color: #a70042;
+      min-width: 34px;
+      text-align: center;
+      user-select: none;
+    }
+    .music-close-btn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      background: #ffb6d5;
+      color: #a70042;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.17rem;
+      cursor: pointer;
+      z-index: 99;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 7px 0 #ffd6e7c0;
+      transition: background 0.15s, color 0.15s, box-shadow 0.18s, opacity 0.22s;
+      opacity: 0.92;
+    }
+    .music-close-btn:focus, .music-close-btn:hover {
+      background: #ffd6e7;
+      color: #d4006f;
+      box-shadow: 0 0 9px 2px #ffb6d5;
+      outline: none;
+    }
+    /* Only show close btn (X) on mobile/touch when controls are shown */
+    @media (pointer: coarse), (max-width: 510px) {
+      .music-controls .music-close-btn {
+        display: flex;
+      }
+    }
+    audio { display: none; }
+    @media (max-width: 900px) {
+      .container { max-width: 99vw; padding: 1.2rem 0.3rem 2rem 0.3rem;}
+      .carousel-container { max-width: 99vw; }
+      .carousel-image-wrapper { border-radius: 17px; }
+    }
+    @media (max-width: 540px) {
+      .container { max-width: 100vw; padding: 0.7rem 0rem 1.2rem 0rem;}
+      .carousel-container { max-width: 100vw; }
+      .carousel-image-wrapper { border-radius: 12px; min-height: 120px; }
       .carousel-arrow { width: 34px; height: 34px; font-size: 1.28rem; }
     }
   </style>
 </head>
 <body>
   <!--
-    === Image Carousel (Romantic Lotus Theme) ===
-    - Images are loaded from /images/1.jpg .. /images/15.jpg
-    - To add/remove images: Change imageCount in JS; add/remove files in /images/ as needed
-    - To change transition speed: Edit autoSlideInterval (ms, default 6000)
-    - To customize captions: Edit getCaption() in JS
+    === IMAGE CAROUSEL (Romantic Lotus Theme) ===
+    JS/HTML comments:
+    - To add/remove images: set imageCount in JS and add/remove files in /images/ with names 1.jpg, 2.jpg, etc.
+    - To change transition speed: set autoSlideInterval (ms) in JS (default 6000)
+    - To customize captions: edit getCaption(idx) in JS
     - All IDs/classes/paths are lowercase for case-sensitive hosting
   -->
+  <audio id="audio-player"></audio>
+  <div class="music-bubble" id="music-bubble">
+    <div class="music-controls" id="music-controls">
+      <button class="music-close-btn" id="music-close-btn" title="închide">&#10005;</button>
+      <div class="music-title" id="music-title">Preput</div>
+      <div class="music-controls-row">
+        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
+        <button class="music-btn" id="playpause-btn" title="play/pause">
+          <span id="playpause-icon">&#10073;&#10073;</span>
+        </button>
+        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
+      </div>
+      <div class="music-controls-row">
+        <span class="music-time" id="current-time">0:00</span>
+        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
+        <span class="music-time" id="duration">0:00</span>
+      </div>
+      <div class="music-controls-row">
+        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
+        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
+      </div>
+    </div>
+    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
+      <span style="pointer-events:none;">&#119070;</span>
+    </button>
+  </div>
+
   <div class="container">
     <a href="index.html" class="home-btn">Home</a>
     <div class="carousel-container" id="carousel-container">
       <div class="carousel-image-wrapper" id="carousel-image-wrapper">
-        <!-- Images loaded by JS -->
+        <!-- Images are loaded by JS -->
         <button class="carousel-arrow left" id="carousel-prev" aria-label="Imaginea anterioară">&#8249;</button>
         <button class="carousel-arrow right" id="carousel-next" aria-label="Imaginea următoare">&#8250;</button>
       </div>
@@ -330,6 +514,176 @@
     loadCarouselImages();
     createDots();
     startAutoSlide();
+
+
+    // === MUSIC PLAYER LOGIC ===
+    // --- PLAYLIST SETUP ---
+    // To add/remove songs: edit playlist array below.
+    // To set display name: edit 'title' property.
+    // To adjust starting volume: change DEFAULT_VOLUME (0.0 to 1.0).
+    const playlist = [
+      { src: 'preput.mp3', title: 'Preput' },
+      { src: 'lotus_ambient.mp3', title: 'I Wanna Be Yours' }
+    ];
+    const DEFAULT_VOLUME = 0.3;
+    const AUTOPLAY = true;
+
+    const audio = document.getElementById('audio-player');
+    const playPauseBtn = document.getElementById('playpause-btn');
+    const playPauseIcon = document.getElementById('playpause-icon');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const seekbar = document.getElementById('seekbar');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const volumeSlider = document.getElementById('volume-slider');
+    const musicTitle = document.getElementById('music-title');
+    const bubble = document.getElementById('music-bubble');
+    const controls = document.getElementById('music-controls');
+    const iconBtn = document.getElementById('music-icon-btn');
+    const closeBtn = document.getElementById('music-close-btn');
+
+    // --- PLAYLIST STATE ---
+    let currentTrack = 0;
+    let seekbarChanging = false;
+
+    function loadTrack(idx, autoPlay = false) {
+      if (idx < 0) idx = playlist.length - 1;
+      if (idx >= playlist.length) idx = 0;
+      currentTrack = idx;
+      audio.src = playlist[currentTrack].src;
+      musicTitle.textContent = playlist[currentTrack].title;
+      seekbar.value = 0;
+      currentTimeEl.textContent = '0:00';
+      durationEl.textContent = '0:00';
+      if (autoPlay) {
+        audio.play();
+      } else {
+        updatePlayPause();
+      }
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      seekbar.max = Math.floor(audio.duration);
+      durationEl.textContent = formatTime(audio.duration);
+    });
+    audio.addEventListener('timeupdate', () => {
+      if (!seekbarChanging) {
+        seekbar.value = Math.floor(audio.currentTime);
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      }
+    });
+    audio.addEventListener('ended', () => {
+      loadTrack(currentTrack + 1, true);
+    });
+
+    function updatePlayPause() {
+      playPauseIcon.innerHTML = audio.paused ? '&#9654;' : '&#10073;&#10073;';
+    }
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) audio.play();
+      else audio.pause();
+      updatePlayPause();
+    });
+    audio.addEventListener('play', updatePlayPause);
+    audio.addEventListener('pause', updatePlayPause);
+
+    nextBtn.addEventListener('click', () => {
+      loadTrack(currentTrack + 1, !audio.paused);
+    });
+    prevBtn.addEventListener('click', () => {
+      loadTrack(currentTrack - 1, !audio.paused);
+    });
+
+    seekbar.addEventListener('input', function() {
+      seekbarChanging = true;
+      currentTimeEl.textContent = formatTime(this.value);
+    });
+    seekbar.addEventListener('change', function() {
+      audio.currentTime = this.value;
+      seekbarChanging = false;
+    });
+
+    volumeSlider.addEventListener('input', function() {
+      audio.volume = this.value;
+    });
+    audio.volume = DEFAULT_VOLUME;
+    volumeSlider.value = DEFAULT_VOLUME;
+
+    function formatTime(sec) {
+      sec = Math.floor(sec);
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    // --- AUTOPLAY HANDLING ---
+    let audioInitiated = false;
+    function unlockAudio() {
+      if (!audioInitiated && AUTOPLAY) {
+        audio.volume = DEFAULT_VOLUME;
+        audio.play().catch(()=>{});
+        audioInitiated = true;
+      }
+    }
+    document.body.addEventListener('click', unlockAudio, {once:true});
+    document.body.addEventListener('touchstart', unlockAudio, {once:true});
+
+    // --- UI BUBBLE BEHAVIOR ---
+    let isMobile = false;
+    function detectMobile() {
+      isMobile = window.matchMedia("(pointer: coarse)").matches;
+      if (isMobile && controlsVisible) {
+        closeBtn.style.display = 'flex';
+      } else {
+        closeBtn.style.display = 'none';
+      }
+    }
+    detectMobile();
+    window.addEventListener('resize', detectMobile);
+
+    let controlsVisible = false;
+    function showControls() {
+      bubble.classList.add('show-controls');
+      controlsVisible = true;
+      detectMobile();
+    }
+    function hideControls() {
+      bubble.classList.remove('show-controls');
+      controlsVisible = false;
+      detectMobile();
+    }
+    bubble.addEventListener('mouseenter', function() {
+      if (!isMobile) showControls();
+    });
+    bubble.addEventListener('mouseleave', function() {
+      if (!isMobile) hideControls();
+    });
+    iconBtn.addEventListener('click', function(e) {
+      if (isMobile) {
+        if (controlsVisible) hideControls();
+        else showControls();
+        e.stopPropagation();
+      }
+    });
+    closeBtn.addEventListener('click', function(e) {
+      hideControls();
+      e.stopPropagation();
+    });
+    document.addEventListener('click', function(e) {
+      if (isMobile && controlsVisible && !bubble.contains(e.target)) {
+        hideControls();
+      }
+    });
+    window.addEventListener('keydown', function(e) {
+      if(isMobile && controlsVisible && e.key === "Escape") {
+        hideControls();
+      }
+    });
+    iconBtn.type = 'button';
+
+    loadTrack(0, false);
+    updatePlayPause();
   </script>
 </body>
 </html>
