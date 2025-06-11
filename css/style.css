@@ -1,17 +1,18 @@
-/* style.css - Shared for all pages, music player, carousel, buttons, etc. */
+/* style.css - Shared lotus theme, buttons, music player, carousel, etc. */
 
-/* --- GOOGLE FONTS IMPORTS (place at the top) --- */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;700&family=Quicksand:wght@700&family=Dancing+Script:wght@700&family=Press+Start+2P&display=swap');
+/* --- FONT IMPORTS --- */
+/* Main romantic fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;700&family=Dancing+Script:wght@700&display=swap');
+/* Blocky/pixel font for Dino button - replace URL below to use a different pixel font if needed */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* To replace this font, update this import and .dino-btn font-family */
 
-/* For blocky/pixel button, uses 'Press Start 2P'. To change, edit font-family in .dino-btn. */
-
-/* --- BACKGROUND --- */
+/* --- BACKGROUND FIX: full-screen lotus image --- */
 html, body {
-  min-height: 100vh;
   height: 100%;
-  width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 body {
   background: url('images/lotus.jpg') no-repeat center center fixed;
@@ -22,11 +23,10 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  height: 100%;
   width: 100%;
 }
 
-/* --- Container --- */
+/* --- CONTAINER --- */
 .container {
   background: rgba(255,255,255,0.16);
   border-radius: 30px;
@@ -42,7 +42,7 @@ body {
   align-items: center;
 }
 
-/* --- Buttons Grid/Col --- */
+/* --- BUTTON GRID --- */
 .button-grid {
   display: flex;
   flex-direction: row;
@@ -59,7 +59,7 @@ body {
   width: 50%;
 }
 
-/* --- Main Romantic Action Buttons --- */
+/* --- MAIN BUTTONS --- */
 .main-btn {
   width: 210px;
   min-width: 130px;
@@ -92,47 +92,42 @@ body {
   transform: scale(1.04);
 }
 
-/* --- Dinosaur Button --- */
+/* --- DINO BUTTON --- */
 .dino-btn {
   width: 210px;
   min-width: 130px;
   max-width: 100%;
-  margin: 0;
-  margin-top: 1.2rem;
-  margin-bottom: 0;
-  padding: 1.05rem 1.1rem 0.95rem 1.1rem;
-  border-radius: 12px;
-  border: 2.5px solid #222;
-  font-size: 1.04rem;
-  font-family: 'Press Start 2P', monospace;
+  padding: 1.1rem 0.8rem 1.1rem 0.8rem;
+  border-radius: 18px;
+  border: 2.5px solid #ffb6d5;
+  font-size: 1.05rem;
+  font-family: 'Press Start 2P', monospace, 'Open Sans', sans-serif; /* Blocky font */
   font-weight: 400;
-  background: #fff;
-  color: #222;
+  cursor: pointer;
+  background: #ffb6d5;
+  color: #a70042;
+  box-shadow: 0 4px 22px 0 rgba(255, 182, 193, 0.15);
+  margin-bottom: 0rem;
   letter-spacing: 0.01em;
   outline: none;
-  box-shadow: 0 2px 10px 0 rgba(30,30,30,0.09);
+  border-bottom: 3px solid #ffd6e7;
   user-select: none;
-  cursor: pointer;
+  text-transform: uppercase;
   transition:
-    box-shadow 0.17s cubic-bezier(.4,0,.2,1),
-    transform 0.19s cubic-bezier(.4,0,.2,1),
-    background 0.13s cubic-bezier(.4,0,.2,1),
+    box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+    transform 0.18s cubic-bezier(.4,0,.2,1),
+    background 0.18s cubic-bezier(.4,0,.2,1),
     color 0.13s cubic-bezier(.4,0,.2,1);
-  text-shadow: 0 0.5px 0 #00000011;
-  text-align: center;
-  display: block;
 }
 .dino-btn:hover, .dino-btn:focus {
-  background: #f5f5f5;
-  color: #111;
-  box-shadow: 0 0 17px 3px #1112;
-  transform: scale(1.035);
-  outline: none;
+  box-shadow: 0 0 24px 4px #ffb6d5, 0 4px 14px 0 rgba(255, 182, 193, 0.19);
+  background: #ffd6e7;
+  color: #a70042;
+  transform: scale(1.03) rotate(-1deg);
 }
+/* To replace the blocky font, update the @import and .dino-btn font-family above. */
 
-/* To use a different pixel/blocky font for dino-btn, replace 'Press Start 2P' in .dino-btn font-family above. */
-
-/* --- Coming Soon Button --- */
+/* --- COMING SOON BUTTON --- */
 .romantic-btn {
   width: 210px;
   min-width: 130px;
@@ -160,10 +155,144 @@ body {
   font-weight: 700;
 }
 
-/* --- Music Player Bubble --- */
-/* (unchanged from previous - see above for full styles) */
+/* --- MUSIC PLAYER BUBBLE --- */
+/* ... (all music player styles as before, unchanged) ... */
+.music-bubble {
+  position: fixed;
+  bottom: 24px;
+  right: 18px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.music-icon-btn {
+  background: rgba(255, 182, 213, 0.95);
+  color: #a70042;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.18);
+  transition: box-shadow 0.22s, background 0.22s;
+  outline: none;
+  position: relative;
+}
+.music-icon-btn:focus, .music-icon-btn:hover {
+  background: #ffd6e7;
+  box-shadow: 0 0 18px 2px #ffb6d5, 0 2px 12px 0 rgba(255, 182, 193, 0.22);
+}
+.music-controls {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 22px;
+  box-shadow: 0 4px 16px 0 rgba(255,182,213,0.19);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.38rem;
+  padding: 0.9rem 1.16rem 0.9rem 1.16rem;
+  margin-bottom: 0.4rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px) scale(0.98);
+  transition:
+    opacity 0.36s cubic-bezier(.4,0,.2,1),
+    transform 0.31s cubic-bezier(.4,0,.2,1);
+  min-width: 212px;
+  width: 265px;
+  max-width: 96vw;
+  box-sizing: border-box;
+  position: relative;
+}
+.music-bubble.show-controls .music-controls,
+.music-bubble:hover .music-controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1.03);
+}
+.music-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.62rem;
+  margin: 0.2rem 0 0.2rem 0;
+}
+.music-btn {
+  background: #ffb6d5;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.18rem;
+  color: #a70042;
+  cursor: pointer;
+  transition: box-shadow 0.16s, background 0.16s, color 0.16s;
+  outline: none;
+}
+.music-btn:hover, .music-btn:focus {
+  background: #ffd6e7;
+  color: #ab005a;
+  box-shadow: 0 0 8px 0 #ffb6d5;
+}
+.music-title {
+  text-align: center;
+  font-size: 1.07rem;
+  font-family: 'Great Vibes', cursive, 'Open Sans', sans-serif;
+  color: #d4006f;
+  margin-bottom: 0.41rem;
+  margin-top: -0.16rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 4px #ffd6e7a0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.music-slider, .music-seekbar {
+  accent-color: #ffb6d5;
+  background: transparent;
+  border-radius: 6px;
+  outline: none;
+  height: 5px;
+  cursor: pointer;
+  margin: 0 0.2rem;
+}
+.music-slider { width: 78px; }
+.music-seekbar { width: 120px; }
+.music-time {
+  font-size: 0.89rem;
+  color: #a70042;
+  min-width: 34px;
+  text-align: center;
+  user-select: none;
+}
+.mobile-x-button {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1000;
+}
+@media (max-width: 768px), (hover: none) {
+  .mobile-x-button {
+    display: block;
+  }
+}
+audio { display: none; }
 
-/* --- Responsive --- */
 @media (max-width: 700px) {
   .container { max-width: 98vw; }
   .button-grid { gap: 1.1rem; }
