@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>principal - lotus love</title>
-  <!-- Romantic and readable fonts -->
+  <!-- Romantic Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -23,13 +23,14 @@
       background: rgba(255, 255, 255, 0.16);
       border-radius: 30px;
       box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16);
-      padding: 2.7rem 2.4rem;
+      padding: 2.7rem 2.4rem 2.2rem 2.4rem;
       max-width: 550px;
       width: 94vw;
       margin: 2.5rem auto 2.5rem auto;
       backdrop-filter: blur(5px);
       border: 2px solid rgba(255,182,213,0.22);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -39,6 +40,7 @@
       gap: 2.1rem;
       width: 100%;
       justify-content: center;
+      margin-top: 0.5rem;
     }
     .button-col {
       display: flex;
@@ -47,7 +49,38 @@
       align-items: center;
       width: 50%;
     }
-    .romantic-btn, .main-btn {
+    .main-btn {
+      width: 210px;
+      min-width: 130px;
+      max-width: 100%;
+      padding: 0.95rem 1.1rem;
+      border-radius: 18px;
+      border: 2.5px solid #ffb6d5;
+      font-size: 1.27rem;
+      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      background: #ffb6d5;
+      color: #a70042;
+      box-shadow: 0 4px 22px 0 rgba(255, 182, 193, 0.15);
+      margin-bottom: 0rem;
+      transition:
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+        transform 0.2s cubic-bezier(.4,0,.2,1),
+        background 0.22s cubic-bezier(.4,0,.2,1),
+        color 0.18s cubic-bezier(.4,0,.2,1);
+      letter-spacing: 0.01em;
+      outline: none;
+      border-bottom: 3px solid #ffd6e7;
+      user-select: none;
+    }
+    .main-btn:hover, .main-btn:focus {
+      box-shadow: 0 0 20px 4px #ffb6d5, 0 4px 14px 0 rgba(255, 182, 193, 0.19);
+      background: #ffd6e7;
+      color: #a70042;
+      transform: scale(1.04);
+    }
+    .outline-btn {
       width: 210px;
       min-width: 130px;
       max-width: 100%;
@@ -59,9 +92,9 @@
       font-weight: 700;
       cursor: pointer;
       margin: 0;
-      background: rgba(255, 182, 213, 0.84);
+      background: transparent;
       color: #a70042;
-      transition: 
+      transition:
         box-shadow 0.22s cubic-bezier(.4,0,.2,1),
         transform 0.2s cubic-bezier(.4,0,.2,1),
         background 0.22s cubic-bezier(.4,0,.2,1),
@@ -71,37 +104,44 @@
       box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
       user-select: none;
       border-bottom: 3px solid #ffd6e7;
+      background: rgba(255, 182, 213, 0.12);
     }
-    .main-btn {
-      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
-      font-size: 1.27rem;
-      background: #ffb6d5;
+    .outline-btn:hover, .outline-btn:focus {
+      box-shadow: 0 0 18px 4px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
+      background: rgba(255, 182, 213, 0.33);
       color: #a70042;
+      transform: scale(1.04);
+    }
+    .romantic-btn {
+      width: 210px;
+      min-width: 130px;
+      max-width: 100%;
+      padding: 0.95rem 1.1rem;
+      border-radius: 18px;
       border: 2.5px solid #ffb6d5;
-      box-shadow: 0 4px 22px 0 rgba(255, 182, 193, 0.15);
-      margin-bottom: 0.35rem;
+      font-size: 1.13rem;
+      font-family: 'quicksand', Arial, sans-serif;
+      font-weight: 700;
+      cursor: not-allowed;
+      margin: 0;
+      background: rgba(255, 182, 213, 0.70);
+      color: #a70042;
+      letter-spacing: 0.01em;
+      outline: none;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
+      border-bottom: 3px solid #ffd6e7;
+      opacity: 1;
+      user-select: none;
+      pointer-events: none;
     }
     .romantic-btn strong {
       font-size: 1.12em;
       font-weight: 700;
     }
-    .romantic-btn:disabled {
-      opacity: 1;
-      cursor: not-allowed;
-      background: rgba(255, 182, 213, 0.70);
-      color: #a70042;
-    }
-    .romantic-btn:hover, .romantic-btn:focus,
-    .main-btn:hover, .main-btn:focus {
-      box-shadow: 0 0 20px 4px #ffb6d5, 0 4px 14px 0 rgba(255, 182, 193, 0.19);
-      background: #ffd6e7;
-      color: #a70042;
-      transform: scale(1.04);
-    }
     @media (max-width: 700px) {
       .container { max-width: 98vw; }
       .button-grid { gap: 1.1rem; }
-      .romantic-btn, .main-btn { width: 97vw; max-width: 350px; min-width: 110px; }
+      .romantic-btn, .main-btn, .outline-btn { width: 97vw; max-width: 350px; min-width: 110px; }
     }
     @media (max-width: 490px) {
       .container {
@@ -113,10 +153,9 @@
         gap: 1.6rem;
       }
       .button-col { width: 100%; }
-      .romantic-btn, .main-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
+      .romantic-btn, .main-btn, .outline-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
     }
-
-    /* --- music bubble styles --- */
+    /* --- Music Bubble --- */
     .music-bubble {
       position: fixed;
       bottom: 24px;
@@ -161,13 +200,14 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(14px) scale(0.98);
-      transition: 
+      transition:
         opacity 0.36s cubic-bezier(.4,0,.2,1),
         transform 0.31s cubic-bezier(.4,0,.2,1);
       min-width: 212px;
       width: 265px;
       max-width: 96vw;
       box-sizing: border-box;
+      position: relative;
     }
     .music-bubble.show-controls .music-controls,
     .music-bubble:hover .music-controls {
@@ -234,22 +274,65 @@
       text-align: center;
       user-select: none;
     }
+    .music-close-btn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      background: #ffb6d5;
+      color: #a70042;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.17rem;
+      cursor: pointer;
+      z-index: 99;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 7px 0 #ffd6e7c0;
+      transition: background 0.15s, color 0.15s, box-shadow 0.18s, opacity 0.22s;
+      opacity: 0.92;
+    }
+    .music-close-btn:focus, .music-close-btn:hover {
+      background: #ffd6e7;
+      color: #d4006f;
+      box-shadow: 0 0 9px 2px #ffb6d5;
+      outline: none;
+    }
+    /* Only show close btn (X) on mobile/touch when controls are shown */
+    @media (pointer: coarse), (max-width: 510px) {
+      .music-controls .music-close-btn {
+        display: flex;
+      }
+    }
     audio { display: none; }
-    @media (max-width: 510px) {
-      .music-bubble { bottom: 8px; right: 5px; }
-      .music-controls { min-width: 140px; width: 98vw; padding: 0.55rem 0.4rem; }
-      .music-title { font-size: 0.99rem; }
-      .music-icon-btn { width: 38px; height: 38px; font-size: 1.4rem; }
-      .music-btn { width: 30px; height: 30px; font-size: 1rem; }
+    @media (max-width: 700px) {
+      .container { max-width: 98vw; }
+      .button-grid { gap: 1.1rem; }
+      .romantic-btn, .main-btn, .outline-btn { width: 97vw; max-width: 350px; min-width: 110px; }
+    }
+    @media (max-width: 490px) {
+      .container {
+        padding: 1.2rem 0.2rem;
+        min-width: unset;
+      }
+      .button-grid {
+        flex-direction: column;
+        gap: 1.6rem;
+      }
+      .button-col { width: 100%; }
+      .romantic-btn, .main-btn, .outline-btn { font-size: 1em; padding: 0.7rem 0.2rem; }
     }
   </style>
 </head>
 <body>
-  <!-- music player: custom bubble -->
+  <!-- Music Player: Custom Bubble -->
   <audio id="audio-player"></audio>
   <div class="music-bubble" id="music-bubble">
     <div class="music-controls" id="music-controls">
-      <div class="music-title" id="music-title">Lotus Ambience</div>
+      <button class="music-close-btn" id="music-close-btn" title="închide">&#10005;</button>
+      <div class="music-title" id="music-title">Preput</div>
       <div class="music-controls-row">
         <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
         <button class="music-btn" id="playpause-btn" title="play/pause">
@@ -275,17 +358,25 @@
   <div class="container">
     <div class="button-grid">
       <div class="button-col">
+        <!-- Top-left: main romantic button -->
         <a href="lotus_second.html" style="text-decoration:none; width:100%;">
           <button class="main-btn" style="width:100%">
             Mesajul meu pentru tine &lt;3
           </button>
         </a>
+        <!-- Below: 3 Coming Soon buttons -->
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
       </div>
       <div class="button-col">
-        <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
+        <!-- Top-right: Galerie foto -->
+        <a href="carusel.html" style="text-decoration:none; width:100%;">
+          <button class="outline-btn" style="width:100%">
+            Galerie foto
+          </button>
+        </a>
+        <!-- Below: 3 more Coming Soon buttons -->
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
         <button class="romantic-btn" disabled><strong>COMING SOON</strong></button>
@@ -296,20 +387,17 @@
   <script>
     // === MUSIC PLAYER LOGIC ===
     // --- PLAYLIST SETUP ---
-    // To change order, change the order of entries in the playlist array.
-    // To add a new song, add another object: {src: 'filename.mp3', title: 'Display Name'}
-    // To set display name, set the 'title' property.
-    // To adjust starting volume, change DEFAULT_VOLUME below (0.0 to 1.0).
-
+    // To change order, change the order in playlist array.
+    // To add a song: {src: 'filename.mp3', title: 'Display Name'}
+    // To set display name: change 'title' property.
+    // To adjust starting volume: change DEFAULT_VOLUME (0.0 to 1.0).
     const playlist = [
-      { src: 'preput.mp3', title: 'Preput' },        // This will play first
+      { src: 'preput.mp3', title: 'Preput' },
       { src: 'lotus_ambient.mp3', title: 'I Wanna Be Yours' }
     ];
-
-    const DEFAULT_VOLUME = 0.3; // 30% volume on load
+    const DEFAULT_VOLUME = 0.3;
     const AUTOPLAY = true;
 
-    // --- ELEMENTS ---
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('playpause-btn');
     const playPauseIcon = document.getElementById('playpause-icon');
@@ -323,13 +411,13 @@
     const bubble = document.getElementById('music-bubble');
     const controls = document.getElementById('music-controls');
     const iconBtn = document.getElementById('music-icon-btn');
+    const closeBtn = document.getElementById('music-close-btn');
 
     // --- PLAYLIST STATE ---
     let currentTrack = 0;
     let seekbarChanging = false;
 
     function loadTrack(idx, autoPlay = false) {
-      // Loop to first if out of bounds
       if (idx < 0) idx = playlist.length - 1;
       if (idx >= playlist.length) idx = 0;
       currentTrack = idx;
@@ -345,7 +433,6 @@
       }
     }
 
-    // --- AUDIO EVENTS ---
     audio.addEventListener('loadedmetadata', () => {
       seekbar.max = Math.floor(audio.duration);
       durationEl.textContent = formatTime(audio.duration);
@@ -357,30 +444,20 @@
       }
     });
     audio.addEventListener('ended', () => {
-      // Auto-advance to next track, loop playlist
       loadTrack(currentTrack + 1, true);
     });
 
-    // --- PLAY/PAUSE ---
     function updatePlayPause() {
-      if (audio.paused) {
-        playPauseIcon.innerHTML = '&#9654;'; // Play icon ▶️
-      } else {
-        playPauseIcon.innerHTML = '&#10073;&#10073;'; // Pause icon
-      }
+      playPauseIcon.innerHTML = audio.paused ? '&#9654;' : '&#10073;&#10073;';
     }
     playPauseBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+      if (audio.paused) audio.play();
+      else audio.pause();
       updatePlayPause();
     });
     audio.addEventListener('play', updatePlayPause);
     audio.addEventListener('pause', updatePlayPause);
 
-    // --- NEXT/PREVIOUS ---
     nextBtn.addEventListener('click', () => {
       loadTrack(currentTrack + 1, !audio.paused);
     });
@@ -388,7 +465,6 @@
       loadTrack(currentTrack - 1, !audio.paused);
     });
 
-    // --- SEEK ---
     seekbar.addEventListener('input', function() {
       seekbarChanging = true;
       currentTimeEl.textContent = formatTime(this.value);
@@ -398,15 +474,12 @@
       seekbarChanging = false;
     });
 
-    // --- VOLUME ---
     volumeSlider.addEventListener('input', function() {
       audio.volume = this.value;
     });
-    // Set initial volume
     audio.volume = DEFAULT_VOLUME;
     volumeSlider.value = DEFAULT_VOLUME;
 
-    // --- FORMAT TIME ---
     function formatTime(sec) {
       sec = Math.floor(sec);
       const m = Math.floor(sec / 60);
@@ -415,7 +488,6 @@
     }
 
     // --- AUTOPLAY HANDLING ---
-    // Many browsers block autoplay until user interacts.
     let audioInitiated = false;
     function unlockAudio() {
       if (!audioInitiated && AUTOPLAY) {
@@ -428,11 +500,14 @@
     document.body.addEventListener('touchstart', unlockAudio, {once:true});
 
     // --- UI BUBBLE BEHAVIOR ---
-    // Desktop: show controls on hover
-    // Mobile: toggle controls on tap, tap outside closes
     let isMobile = false;
     function detectMobile() {
       isMobile = window.matchMedia("(pointer: coarse)").matches;
+      if (isMobile && controlsVisible) {
+        closeBtn.style.display = 'flex';
+      } else {
+        closeBtn.style.display = 'none';
+      }
     }
     detectMobile();
     window.addEventListener('resize', detectMobile);
@@ -441,10 +516,12 @@
     function showControls() {
       bubble.classList.add('show-controls');
       controlsVisible = true;
+      detectMobile();
     }
     function hideControls() {
       bubble.classList.remove('show-controls');
       controlsVisible = false;
+      detectMobile();
     }
     bubble.addEventListener('mouseenter', function() {
       if (!isMobile) showControls();
@@ -454,13 +531,14 @@
     });
     iconBtn.addEventListener('click', function(e) {
       if (isMobile) {
-        if (controlsVisible) {
-          hideControls();
-        } else {
-          showControls();
-        }
+        if (controlsVisible) hideControls();
+        else showControls();
         e.stopPropagation();
       }
+    });
+    closeBtn.addEventListener('click', function(e) {
+      hideControls();
+      e.stopPropagation();
     });
     document.addEventListener('click', function(e) {
       if (isMobile && controlsVisible && !bubble.contains(e.target)) {
@@ -472,22 +550,10 @@
         hideControls();
       }
     });
-
     iconBtn.type = 'button';
 
-    // --- INITIAL LOAD ---
     loadTrack(0, false);
     updatePlayPause();
-
-    /*
-      === HOW TO CONFIGURE PLAYLIST ===
-      - To change the order of songs: change their order in the playlist array.
-      - To add new songs: add more objects to the playlist array, e.g.:
-        { src: 'new_song.mp3', title: 'New Song Name' }
-      - To set display names: adjust the 'title' property for each song.
-      - To adjust the initial volume: change DEFAULT_VOLUME (0.0 = mute, 1.0 = max).
-      - All filenames, IDs, and classes should remain lowercase for case-sensitive hosting.
-    */
   </script>
 </body>
 </html>
