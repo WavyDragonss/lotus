@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie foto - Lotus Love</title>
+  <!-- Romantic Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: url('lotus.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'quicksand', Arial, sans-serif;
+      color: #a70042;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: rgba(255,255,255,0.16);
+      border-radius: 30px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16);
+      padding: 2.1rem 1.5rem 2.2rem 1.5rem;
+      max-width: 490px;
+      width: 96vw;
+      margin: 2.5rem auto 2.5rem auto;
+      backdrop-filter: blur(5px);
+      border: 2px solid rgba(255,182,213,0.22);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .carousel-container {
+      width: 100%;
+      max-width: 370px;
+      margin: 0 auto 1.9rem auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .carousel-image-wrapper {
+      width: 100%;
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      box-shadow: 0 2px 22px 0 rgba(255,182,213,0.14);
+      background: rgba(255,255,255,0.19);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.9rem;
+    }
+    .carousel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .carousel-image.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,182,213,0.92);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 1.7rem;
+      color: #a70042;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 7px 0 rgba(255,182,213,0.13);
+      cursor: pointer;
+      z-index: 2;
+      transition: box-shadow 0.14s, background 0.15s, color 0.15s, transform 0.13s;
+      opacity: 0.89;
+      user-select: none;
+    }
+    .carousel-arrow:hover, .carousel-arrow:focus {
+      background: #ffd6e7;
+      box-shadow: 0 0 12px 2px #ffb6d5;
+      color: #d4006f;
+      transform: scale(1.07);
+      outline: none;
+    }
+    .carousel-arrow.left { left: 8px; }
+    .carousel-arrow.right { right: 8px; }
+    .carousel-caption {
+      margin-top: 0.7rem;
+      font-size: 1.10rem;
+      color: #a70042e6;
+      font-family: 'Dancing Script', cursive, 'quicksand', Arial, sans-serif;
+      text-align: center;
+      text-shadow: 0 1px 8px #ffd6e7b0;
+      letter-spacing: 0.01em;
+      font-weight: 700;
+      min-height: 1.8em;
+      user-select: none;
+    }
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.37rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.1rem;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffd6e7;
+      opacity: 0.6;
+      transition: opacity 0.22s, box-shadow 0.22s;
+      cursor: pointer;
+      box-shadow: 0 1px 2px 0 rgba(255,182,213,0.13);
+      border: none;
+      outline: none;
+    }
+    .carousel-dot.active {
+      opacity: 1;
+      background: #ffb6d5;
+      box-shadow: 0 0 6px 2px #ffb6d5b8;
+    }
+    .home-btn {
+      display: inline-block;
+      margin: 1.15rem auto 0.2rem auto;
+      padding: 0.65rem 1.4rem;
+      background: transparent;
+      border: 2.5px solid #ffb6d5;
+      color: #a70042;
+      border-radius: 15px;
+      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
+      font-size: 1.11rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
+      transition:
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+        transform 0.2s cubic-bezier(.4,0,.2,1),
+        background 0.22s cubic-bezier(.4,0,.2,1),
+        color 0.18s cubic-bezier(.4,0,.2,1);
+    }
+    .home-btn:hover, .home-btn:focus {
+      background: rgba(255, 182, 213, 0.33);
+      color: #a70042;
+      box-shadow: 0 0 18px 4px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
+      transform: scale(1.04);
+      outline: none;
+    }
+    @media (max-width: 700px) {
+      .container { max-width: 99vw; padding: 1.2rem 0.3rem 1.2rem 0.3rem;}
+      .carousel-container { max-width: 99vw; }
+    }
+    @media (max-width: 430px) {
+      .carousel-container { max-width: 98vw; }
+      .carousel-image-wrapper { border-radius: 11px; }
+      .carousel-arrow { width: 34px; height: 34px; font-size: 1.28rem; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    === Image Carousel (Romantic Lotus Theme) ===
+    - Images are loaded from /images/1.jpg .. /images/15.jpg
+    - To add/remove images: Change imageCount in JS; add/remove files in /images/ as needed
+    - To change transition speed: Edit autoSlideInterval (ms, default 6000)
+    - To customize captions: Edit getCaption() in JS
+    - All IDs/classes/paths are lowercase for case-sensitive hosting
+  -->
+  <div class="container">
+    <a href="index.html" class="home-btn">Home</a>
+    <div class="carousel-container" id="carousel-container">
+      <div class="carousel-image-wrapper" id="carousel-image-wrapper">
+        <!-- Images loaded by JS -->
+        <button class="carousel-arrow left" id="carousel-prev" aria-label="Imaginea anterioară">&#8249;</button>
+        <button class="carousel-arrow right" id="carousel-next" aria-label="Imaginea următoare">&#8250;</button>
+      </div>
+      <div class="carousel-caption" id="carousel-caption"></div>
+      <div class="carousel-indicators" id="carousel-indicators"></div>
+    </div>
+  </div>
+  <script>
+    /*
+      === IMAGE CAROUSEL CONFIGURATION ===
+      To add/remove images:
+        - Place images in /images/ as 1.jpg, 2.jpg, ... (case sensitive, up to imageCount)
+        - Set imageCount to the number of images
+      To change auto-slide speed:
+        - Change autoSlideInterval (ms, e.g. 6000 = 6 seconds; set to 0 to disable)
+      To customize captions:
+        - Edit getCaption(idx) to customize per-image captions
+      All IDs/classes/paths are lowercase for case-sensitive hosting
+    */
+
+    const imageCount = 15; // Number of images in /images/1.jpg ... /images/15.jpg
+    const autoSlideInterval = 6000; // ms (set to 0 to disable auto-slide)
+    const transitionTime = 700; // ms, must match .carousel-image transition
+
+    // Optional: Custom captions per image
+    function getCaption(idx) {
+      // idx is 0-based
+      // To set custom captions, use:
+      // if(idx===0) return "Prima imagine";
+      // else if(idx===1) return "Imaginea specială";
+      // else ...
+      return `Imaginea ${idx+1}`;
+    }
+
+    // --- Carousel Logic ---
+    const carouselWrapper = document.getElementById('carousel-image-wrapper');
+    const indicators = document.getElementById('carousel-indicators');
+    const caption = document.getElementById('carousel-caption');
+    const prevBtnC = document.getElementById('carousel-prev');
+    const nextBtnC = document.getElementById('carousel-next');
+    let currentImg = 0;
+    let images = [];
+    let dots = [];
+    let autoSlideTimer = null;
+    let startX = 0, moveX = 0;
+
+    // Load images
+    function loadCarouselImages() {
+      for (let i = 0; i < imageCount; i++) {
+        const img = document.createElement('img');
+        img.src = `images/${i+1}.jpg`;
+        img.className = 'carousel-image';
+        img.draggable = false;
+        if (i === 0) img.classList.add('active');
+        carouselWrapper.appendChild(img);
+        images.push(img);
+        // Preload next image for smoothness
+        if (i < imageCount-1) {
+          const preload = new Image();
+          preload.src = `images/${i+2}.jpg`;
+        }
+      }
+      setCaption(0);
+    }
+    function setCaption(idx) {
+      caption.textContent = getCaption(idx);
+    }
+    // Create dots
+    function createDots() {
+      for (let i = 0; i < imageCount; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => showImage(i));
+        indicators.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+    function showImage(idx) {
+      if (idx < 0) idx = imageCount-1;
+      if (idx >= imageCount) idx = 0;
+      images[currentImg].classList.remove('active');
+      dots[currentImg].classList.remove('active');
+      images[idx].classList.add('active');
+      dots[idx].classList.add('active');
+      setCaption(idx);
+      currentImg = idx;
+    }
+    function prevImage() {
+      showImage(currentImg - 1);
+      resetAutoSlide();
+    }
+    function nextImage() {
+      showImage(currentImg + 1);
+      resetAutoSlide();
+    }
+    prevBtnC.addEventListener('click', prevImage);
+    nextBtnC.addEventListener('click', nextImage);
+
+    // Swipe support
+    carouselWrapper.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) startX = e.touches[0].clientX;
+    });
+    carouselWrapper.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 1) moveX = e.touches[0].clientX;
+    });
+    carouselWrapper.addEventListener('touchend', function(e) {
+      let dx = moveX - startX;
+      if (Math.abs(dx) > 35) {
+        if (dx > 0) prevImage();
+        else nextImage();
+      }
+      startX = moveX = 0;
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+
+    // Auto-slide
+    function startAutoSlide() {
+      if (autoSlideInterval > 0) {
+        autoSlideTimer = setInterval(() => {
+          nextImage();
+        }, autoSlideInterval);
+      }
+    }
+    function resetAutoSlide() {
+      if (autoSlideTimer) clearInterval(autoSlideTimer);
+      startAutoSlide();
+    }
+
+    // Init carousel
+    loadCarouselImages();
+    createDots();
+    startAutoSlide();
+  </script>
+</body>
+</html>
