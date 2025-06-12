@@ -7,6 +7,7 @@
   <!-- Romantic and body fonts: Great Vibes for titles/buttons, Quicksand/Open Sans for body -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/music2.css">
   <style>
     /* Dark mode toggle floating button */
     #darkToggle {
@@ -56,62 +57,11 @@
       pointer-events: none;
       cursor: not-allowed;
     }
-    /* Only the music icon triggers the popup */
-    .music-icon-btn {
-      pointer-events: auto;
-      z-index: 2;
-    }
-    .music-bubble {
-      pointer-events: none;
-    }
-    .music-controls, .music-icon-btn {
-      pointer-events: auto;
-    }
-    /* Prevent pointer events on the rest of the music-bubble */
-    .music-bubble > *:not(.music-controls):not(.music-icon-btn) {
-      pointer-events: none !important;
-    }
-    /* Make sure .music-icon-btn is not full width and is centered in its area */
-    .music-icon-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      margin: 0 auto;
-    }
   </style>
 </head>
 <body class="dark-mode">
-  <!-- Music Player: Custom Bubble -->
-  <audio id="audio-player"></audio>
-  <div class="music-bubble" id="music-bubble">
-    <div class="music-controls" id="music-controls">
-      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
-      <div class="music-title" id="music-title">Preput</div>
-      <div class="music-controls-row">
-        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
-        <button class="music-btn" id="playpause-btn" title="play/pause">
-          <span id="playpause-icon">&#10073;&#10073;</span>
-        </button>
-        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
-      </div>
-      <div class="music-controls-row">
-        <span class="music-time" id="current-time">0:00</span>
-        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
-        <span class="music-time" id="duration">0:00</span>
-      </div>
-      <div class="music-controls-row">
-        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
-        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
-      </div>
-    </div>
-    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
-      <span style="pointer-events:auto;">&#119070;</span>
-    </button>
-  </div>
-
-  <!-- Dark mode toggle button (outside .container, bottom-left corner) -->
+  <!-- Music Player: Floating Bubble System -->
+  <!-- music2.js injects the player here -->
   <button id="darkToggle" aria-label="Switch dark/light mode">🌙</button>
 
   <div class="container">
@@ -148,7 +98,7 @@
       </div>
     </div>
   </div>
-
+  <script src="js/music2.js"></script>
   <script src="js/main.js" defer></script>
   <script>
     // DARK MODE TOGGLE LOGIC
@@ -163,29 +113,6 @@
         const isDark = document.body.classList.contains("dark-mode");
         toggle.innerText = isDark ? "🌙" : "☀️";
         toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-      });
-    });
-
-    // MUSIC BUTTON MENU TRIGGER - restrict toggle to only the icon
-    document.addEventListener("DOMContentLoaded", () => {
-      const musicBubble = document.getElementById("music-bubble");
-      const musicIconBtn = document.getElementById("music-icon-btn");
-      // Remove pointer events from parent except the icon
-      musicBubble.style.pointerEvents = "none";
-      musicIconBtn.style.pointerEvents = "auto";
-      // Ensure only the icon toggles the controls popup
-      musicIconBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        musicBubble.classList.toggle("show-controls");
-      });
-      // Optional: Close controls when clicking outside
-      document.addEventListener("click", function (e) {
-        if (
-          musicBubble.classList.contains("show-controls") &&
-          !musicBubble.contains(e.target)
-        ) {
-          musicBubble.classList.remove("show-controls");
-        }
       });
     });
   </script>
