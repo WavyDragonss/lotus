@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/music2.css">
   <style>
-    /* Dark mode toggle floating button */
+    /* --- Dark Mode Toggle Floating Button --- */
     #darkToggle {
       position: fixed;
       bottom: 22px;
@@ -57,11 +57,16 @@
       pointer-events: none;
       cursor: not-allowed;
     }
+    /* Ensure music2-bubble always visible, floating bottom-right */
+    .music2-bubble {
+      z-index: 1050 !important;
+    }
   </style>
 </head>
 <body class="dark-mode">
-  <!-- Music Player: Floating Bubble System -->
-  <!-- music2.js injects the player here -->
+  <!-- Floating music bubble is injected by js/music2.js -->
+
+  <!-- Dark mode toggle button (outside .container, bottom-left corner) -->
   <button id="darkToggle" aria-label="Switch dark/light mode">🌙</button>
 
   <div class="container">
@@ -89,7 +94,7 @@
         </a>
       </div>
       <div class="button-col">
-        <!-- Replace the next coming soon button with Reasons I Love You -->
+        <!-- Replace ONLY the first coming soon button with Reasons I Love You -->
         <button class="main-btn small-main-btn" onclick="location.href='cards.html'">❤️ Reasons I Love You</button>
         <!-- All other coming soon/inactive buttons should be blacked out -->
         <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
@@ -99,7 +104,6 @@
     </div>
   </div>
   <script src="js/music2.js"></script>
-  <script src="js/main.js" defer></script>
   <script>
     // DARK MODE TOGGLE LOGIC
     document.addEventListener("DOMContentLoaded", () => {
