@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Un compliment pentru tine 💌</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/music.css">
   <style>
-    /* Optional: compliment fade animation */
+    /* Compliment fade-in animation */
     .compliment-fade {
       animation: complimentFadeIn 0.7s;
     }
@@ -15,49 +14,139 @@
       from { opacity: 0; transform: translateY(18px) scale(0.98);}
       to { opacity: 1; transform: none;}
     }
+    /* Entrance animation for container */
+    .page-entrance {
+      animation: pageEntrance 1.2s cubic-bezier(.4,0,.2,1) forwards;
+      opacity: 0;
+      transform: scale(0.97) translateY(30px);
+    }
+    @keyframes pageEntrance {
+      from { opacity: 0; transform: scale(0.97) translateY(30px);}
+      to   { opacity: 1; transform: none;}
+    }
+    /* Falling background container */
+    #falling-bg {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    /* Compliment generator specific tweaks */
+    .compliment-title {
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-size: 2.2rem;
+      color: #a70042;
+      margin-bottom: 1.4rem;
+      text-shadow: 0 2px 14px #ffd6e7c0;
+      letter-spacing: 0.01em;
+    }
+    #compliment {
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-size: 1.45rem;
+      color: #d4006f;
+      background: rgba(255,255,255,0.34);
+      border-radius: 18px;
+      box-shadow: 0 4px 22px 0 rgba(255, 182, 193, 0.12);
+      padding: 1.3rem 1.1rem;
+      min-height: 3.5em;
+      margin-bottom: 2.1rem;
+      max-width: 95vw;
+      min-width: 210px;
+      word-break: break-word;
+      line-height: 1.6;
+      transition: background 0.22s;
+    }
+    #generateBtn {
+      padding: 0.82rem 1.4rem;
+      font-size: 1.13rem;
+      border-radius: 15px;
+      background: #ffb6d5;
+      color: #a70042;
+      border: 2.5px solid #ffb6d5;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.10);
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+        transform 0.2s cubic-bezier(.4,0,.2,1),
+        background 0.22s cubic-bezier(.4,0,.2,1),
+        color 0.18s cubic-bezier(.4,0,.2,1);
+      outline: none;
+      letter-spacing: 0.01em;
+    }
+    #generateBtn:hover, #generateBtn:focus {
+      background: #ffd6e7;
+      color: #a70042;
+      box-shadow: 0 0 16px 3px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
+      transform: scale(1.04);
+      outline: none;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1.1rem 0.3rem 1.7rem 0.3rem; }
+      .compliment-title { font-size: 1.38rem; }
+      #compliment { font-size: 1.1rem; }
+    }
   </style>
 </head>
 <body>
-  <!-- Falling hearts/stars background (via JS) -->
-
-  <!-- Music Player: Custom Bubble -->
-  <audio id="audio-player"></audio>
-  <div class="music-bubble" id="music-bubble">
-    <div class="music-controls" id="music-controls">
-      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
-      <div class="music-title" id="music-title">Preput</div>
-      <div class="music-controls-row">
-        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
-        <button class="music-btn" id="playpause-btn" title="play/pause">
-          <span id="playpause-icon">&#10073;&#10073;</span>
-        </button>
-        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
-      </div>
-      <div class="music-controls-row">
-        <span class="music-time" id="current-time">0:00</span>
-        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
-        <span class="music-time" id="duration">0:00</span>
-      </div>
-      <div class="music-controls-row">
-        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
-        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
-      </div>
-    </div>
-    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
-      <span style="pointer-events:none;">&#119070;</span>
-    </button>
-  </div>
-
-  <div class="compliment-container">
-    <div class="compliment-title">Un compliment pentru tine 💌</div>
+  <!-- Falling hearts and stars BG -->
+  <div id="falling-bg"></div>
+  <div class="container page-entrance">
+    <div class="compliment-title">un compliment pentru tine 💌</div>
     <div id="compliment"></div>
-    <button id="generateBtn">Generează un compliment 💖</button>
+    <button id="generateBtn">generează un compliment 💖</button>
   </div>
-
   <script src="js/complimente.js"></script>
   <script src="js/generator.js"></script>
-  <script src="js/falling-bg.js"></script>
-  <script src="js/entrance.js"></script>
-  <script src="js/music.js" defer></script>
+  <script>
+    // Entrance animation
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.container').classList.add('page-entrance');
+    });
+
+    // Subtle falling hearts & stars
+    // Lightweight (no external dependencies)
+    (function(){
+      const colors = [
+        'rgba(255,182,213,0.7)', 'rgba(255,182,213,0.47)',
+        'rgba(255,255,255,0.25)', 'rgba(255,236,244,0.32)'
+      ];
+      const icons = ['❤️','⭐','💖','✨','💗'];
+      const bg = document.getElementById('falling-bg');
+      function spawn() {
+        const el = document.createElement('div');
+        el.className = 'falling-emoji';
+        el.innerText = icons[Math.floor(Math.random()*icons.length)];
+        const size = Math.random()*32+18;
+        el.style.position = 'absolute';
+        el.style.left = (Math.random()*100) + 'vw';
+        el.style.top = '-60px';
+        el.style.fontSize = size+'px';
+        el.style.opacity = (Math.random()*0.5+0.23).toFixed(2);
+        el.style.color = colors[Math.floor(Math.random()*colors.length)];
+        el.style.pointerEvents = 'none';
+        el.style.userSelect = 'none';
+        el.style.filter = 'blur(' + (Math.random() > 0.7 ? 0.7 : 0) + 'px)';
+        el.style.zIndex = 0;
+        // Animation
+        const duration = Math.random()*3+5.5;
+        el.animate([
+          { transform: 'translateY(0)', opacity: el.style.opacity },
+          { transform: `translateY(${window.innerHeight + 120}px)`, opacity: '0.06' }
+        ], {
+          duration: duration*1000,
+          easing: 'linear',
+          fill: 'forwards'
+        });
+        setTimeout(() => { bg.removeChild(el); }, duration*1000+400);
+        bg.appendChild(el);
+      }
+      setInterval(spawn, 320); // Soft density
+      // Responsive - clear on resize
+      window.addEventListener('resize', () => { bg.innerHTML = ''; });
+    })();
+  </script>
 </body>
 </html>
