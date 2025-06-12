@@ -1,22 +1,8 @@
-// music2.js - second, independent music player popup for lotus.
-// all class, id, and file names are lowercase and consistent.
-
-/*
-how the slider works:
-- the seekbar input has a range from 0 to 1000 (for precision).
-- updates with track playback.
-- dragging the slider previews the time; releasing (mouseup/touchend/change) jumps to that time.
-- slider is disabled until the track's metadata is loaded.
-*/
+// music2.js - floating music player bubble for lotus site
 
 const music2_tracks = [
-  { src: 'music/end.mp3', title: 'In The End' }
-  { src: 'music/lotus_ambient.mp3', title: 'I Wanna Be Yours' },
-  { src: 'music/preput.mp3', title: 'Preput' },
-  { src: 'music/animals.mp3', title: 'Animals' },
-  { src: 'music/shut.mp3', title: 'Shut Up And Dance With Me' },
-  { src: 'music/cant.mp3', title: "Can't Hold Us" },
-  { src: 'music/bones.mp3', title: 'Bones' }
+  { src: 'music/lotus_ambient.mp3', title: 'Lotus Ambient' },
+  { src: 'music/preput.mp3', title: 'Preput' }
 ];
 
 // --- dom construction ---
@@ -39,17 +25,16 @@ music2bubble.innerHTML = `
     </div>
     <div class="music2-controls-row">
       <span style="font-size:1.1rem;color:#a70042;">🔊</span>
-      <input class="music2-slider" id="music2-volume" type="range" min="0" max="1" step="0.01" value="0.5" title="volum">
+      <input class="music2-slider" id="music2-volume" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
     </div>
   </div>
   <button class="music2-icon-btn" id="music2-icon-btn" aria-label="control muzică" tabindex="0">
-    <span style="pointer-events:none;">&#119070;</span>
+    <span style="pointer-events:auto;">&#119070;</span>
   </button>
   <audio class="music2-audio" id="music2-audio"></audio>
 `;
 document.body.appendChild(music2bubble);
 
-// --- dom references ---
 const music2audio = music2bubble.querySelector('#music2-audio');
 const music2title = music2bubble.querySelector('#music2-title');
 const music2playpausebtn = music2bubble.querySelector('#music2-playpause');
@@ -61,20 +46,40 @@ const music2currenttime = music2bubble.querySelector('#music2-current-time');
 const music2duration = music2bubble.querySelector('#music2-duration');
 const music2volume = music2bubble.querySelector('#music2-volume');
 const music2iconbtn = music2bubble.querySelector('#music2-icon-btn');
-const music2controls = music2bubble.querySelector('.music2-controls');
 
-// --- state variables ---
 let music2index = 0;
 let music2isplaying = false;
 let music2seekbardragging = false;
 let music2lastseek = 0;
 
-// --- popup show/hide ---
-music2iconbtn.addEventListener('click', () => {
-  music2bubble.classList.toggle('show-controls');
+// Icon toggles controls (click OR hover)
+function showControls() {
+  music2bubble.classList.add('show-controls');
+}
+function hideControls() {
+  music2bubble.classList.remove('show-controls');
+}
+music2iconbtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (music2bubble.classList.contains('show-controls')) {
+    hideControls();
+  } else {
+    showControls();
+  }
+});
+music2iconbtn.addEventListener('mouseenter', showControls);
+music2bubble.addEventListener('mouseleave', hideControls);
+
+document.addEventListener("click", function (e) {
+  if (
+    music2bubble.classList.contains("show-controls") &&
+    !music2bubble.contains(e.target)
+  ) {
+    hideControls();
+  }
 });
 
-// --- track controls ---
+// --- Track Controls ---
 function music2settrack(idx, autoplay = false) {
   music2index = idx;
   const track = music2_tracks[idx];
@@ -119,29 +124,25 @@ music2audio.addEventListener('ended', () => {
   music2settrack((music2index+1)%music2_tracks.length, true);
 });
 
-// --- volume control ---
+// --- Volume Control ---
 music2volume.addEventListener('input', () => {
   music2audio.volume = music2volume.value;
 });
 music2audio.volume = music2volume.value;
 
-// --- time slider logic ---
+// --- Time Slider Logic ---
 music2audio.addEventListener('loadedmetadata', () => {
   music2duration.textContent = formattime(music2audio.duration);
   music2currenttime.textContent = formattime(music2audio.currentTime);
   music2seekbar.disabled = false;
   music2seekbar.value = music2audio.duration ? Math.round((music2audio.currentTime / music2audio.duration) * 1000) : 0;
 });
-
-// update slider as track plays (unless user is dragging)
 music2audio.addEventListener('timeupdate', () => {
   if (!music2seekbardragging && music2audio.duration) {
     music2seekbar.value = Math.round((music2audio.currentTime / music2audio.duration) * 1000);
     music2currenttime.textContent = formattime(music2audio.currentTime);
   }
 });
-
-// only update preview label while dragging, but ONLY set .currentTime on release
 music2seekbar.addEventListener('input', () => {
   if (music2audio.duration) {
     music2seekbardragging = true;
@@ -156,7 +157,6 @@ music2seekbar.addEventListener('input', () => {
 ['mouseup', 'touchend', 'change'].forEach(evt =>
   music2seekbar.addEventListener(evt, () => {
     if (music2audio.duration && music2seekbardragging) {
-      // only set currentTime ONCE, on release
       music2audio.currentTime = music2lastseek;
       music2currenttime.textContent = formattime(music2audio.currentTime);
     }
@@ -164,7 +164,6 @@ music2seekbar.addEventListener('input', () => {
   })
 );
 
-// --- utility: format seconds as mm:ss ---
 function formattime(time) {
   time = Math.floor(time || 0);
   const m = Math.floor(time / 60);
@@ -172,7 +171,4 @@ function formattime(time) {
   return `${m}:${s < 10 ? '0' : ''}${s}`;
 }
 
-// --- initialize ---
 music2settrack(0);
-
-// --- end of music2.js ---
