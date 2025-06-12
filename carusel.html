@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>galerie foto - lotus love</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/music2.css">
   <style>
     .lockscreen-overlay {
       position: fixed;
@@ -270,6 +271,7 @@
     const lockscreenBtn = document.getElementById('lockscreen-btn');
     const container = document.querySelector('.container');
     const fallingBg = document.getElementById('falling-bg');
+    let music2Loaded = false;
 
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function (e) {
@@ -288,6 +290,13 @@
         container.classList.add("page-entrance");
         fallingBg.style.display = "";
         startFallingBackground();
+        // Music player appears only after unlock
+        if (!music2Loaded) {
+          music2Loaded = true;
+          const script = document.createElement('script');
+          script.src = 'js/music2.js';
+          document.body.appendChild(script);
+        }
       }, 900);
     }
 
