@@ -1,0 +1,91 @@
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.card-flip {
+  background: linear-gradient(135deg, #fff6fa 0%, #ffe0ef 90%);
+  box-shadow: 0 4px 18px 0 rgba(255,182,213,0.16);
+  border-radius: 23px;
+  width: 330px;
+  height: 170px;
+  position: relative;
+  perspective: 900px;
+  cursor: pointer;
+  margin: 0 auto;
+  user-select: none;
+  transition: box-shadow 0.19s, transform 0.18s;
+  outline: none;
+  border: 1.5px solid #ffb6d5;
+}
+.card-flip:focus, .card-flip:hover {
+  box-shadow: 0 8px 33px 0 #ffd6e7a8, 0 4px 18px 0 rgba(255,182,213,0.23);
+  transform: translateY(-2px) scale(1.02);
+  border-color: #ffd6e7;
+}
+.card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 23px;
+  transition: transform 0.62s cubic-bezier(.44,.2,.2,1.1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.card-flip.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Dancing Script", "Great Vibes", cursive, "Open Sans", sans-serif;
+  font-size: 1.4rem;
+  color: #a70042;
+  letter-spacing: 0.01em;
+  text-align: center;
+  padding: 1.2rem;
+  box-sizing: border-box;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.27s;
+}
+.card-front {
+  background: linear-gradient(135deg, #fff8fc 0%, #ffe0ef 100%);
+  border: 1.5px solid #ffd6e7;
+  font-size: 1.6rem;
+  justify-content: center;
+  align-items: center;
+  color: #dd1375;
+  font-family: "Great Vibes", "Dancing Script", cursive, "Open Sans", sans-serif;
+  font-weight: 700;
+  gap: 0.5rem;
+}
+.card-front .heart {
+  font-size: 2.2rem;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #ffe0ef 0%, #fff6fa 100%);
+  border: 1.5px solid #ffd6e7;
+  font-size: 1.16rem;
+  color: #a70042;
+}
+
+@media (max-width: 600px) {
+  .card-flip {
+    width: 95vw;
+    min-width: 0;
+    height: 136px;
+    font-size: 1.05rem;
+  }
+  .card-front, .card-back { font-size: 1.07rem; }
+}
