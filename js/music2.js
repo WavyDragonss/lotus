@@ -1,11 +1,12 @@
 // music2.js - second, independent music player popup for lotus.
 // all class, id, and file names are lowercase and consistent.
+// server-safe, works on all browsers and simple http servers.
 
 /*
 how the slider works:
 - the seekbar input has a range from 0 to 1000 (for precision).
 - updates with track playback.
-- dragging the slider previews the time; releasing (mouseup/touchend/change) jumps to that time.
+- dragging or tapping the slider previews the time; releasing (mouseup/touchend/change) jumps to that time.
 - slider is disabled until the track's metadata is loaded.
 */
 
@@ -56,7 +57,6 @@ const music2currenttime = music2bubble.querySelector('#music2-current-time');
 const music2duration = music2bubble.querySelector('#music2-duration');
 const music2volume = music2bubble.querySelector('#music2-volume');
 const music2iconbtn = music2bubble.querySelector('#music2-icon-btn');
-const music2controls = music2bubble.querySelector('.music2-controls');
 
 // --- state variables ---
 let music2index = 0;
@@ -126,32 +126,42 @@ music2audio.addEventListener('loadedmetadata', () => {
   music2seekbar.disabled = false;
   music2seekbar.value = music2audio.duration ? Math.round((music2audio.currentTime / music2audio.duration) * 1000) : 0;
 });
+
+// As the song plays, keep slider and time in sync unless dragging
 music2audio.addEventListener('timeupdate', () => {
   if (!music2seekbardragging && music2audio.duration) {
     music2seekbar.value = Math.round((music2audio.currentTime / music2audio.duration) * 1000);
     music2currenttime.textContent = formattime(music2audio.currentTime);
   }
 });
-music2seekbar.addEventListener('input', () => {
+
+// Dragging logic: works for mouse and touch, and works on any server
+function sliderStartDrag() {
+  music2seekbardragging = true;
+}
+function sliderEndDrag() {
   if (music2audio.duration) {
-    music2seekbardragging = true;
+    const seekto = (music2seekbar.value / 1000) * music2audio.duration;
+    music2audio.currentTime = seekto;
+    music2currenttime.textContent = formattime(music2audio.currentTime);
+  }
+  music2seekbardragging = false;
+}
+music2seekbar.addEventListener('mousedown', sliderStartDrag);
+music2seekbar.addEventListener('touchstart', sliderStartDrag);
+
+music2seekbar.addEventListener('input', () => {
+  // Show preview of current time while dragging
+  if (music2audio.duration) {
     const seekto = (music2seekbar.value / 1000) * music2audio.duration;
     music2currenttime.textContent = formattime(seekto);
   }
 });
-['mousedown', 'touchstart'].forEach(evt =>
-  music2seekbar.addEventListener(evt, () => music2seekbardragging = true)
-);
-['mouseup', 'touchend', 'change'].forEach(evt =>
-  music2seekbar.addEventListener(evt, () => {
-    if (music2audio.duration && music2seekbardragging) {
-      const seekto = (music2seekbar.value / 1000) * music2audio.duration;
-      music2audio.currentTime = seekto;
-      music2currenttime.textContent = formattime(music2audio.currentTime);
-    }
-    music2seekbardragging = false;
-  })
-);
+
+// Mouseup/touchend fire on window to catch events even if cursor leaves slider
+window.addEventListener('mouseup', sliderEndDrag);
+window.addEventListener('touchend', sliderEndDrag);
+music2seekbar.addEventListener('change', sliderEndDrag);
 
 // --- utility: format seconds as mm:ss ---
 function formattime(time) {
