@@ -5,7 +5,7 @@
 // --- Music Track List ---
 // Customize with your own tracks and titles!
 const music2_tracks = [
-  { src: 'music/lotus_ambient.mp3', title: 'Lotus Ambient' },
+  { src: 'music/lotus_ambient.mp3', title: 'I wanna be yours' },
   { src: 'music/preput.mp3', title: 'Preput' },
 ];
 
