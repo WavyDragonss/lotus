@@ -5,9 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>galerie foto - lotus love</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/music.css">
   <style>
-    /* Carousel-specific styles here, or keep using your previous ones */
+    .lockscreen-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lockscreen-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1);
+    }
+    .lockscreen-box {
+      background: rgba(255,182,213,0.16);
+      border-radius: 23px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
+      padding: 2.1rem 2.2rem 2.1rem 2.2rem;
+      min-width: 295px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid rgba(255,182,213,0.22);
+      text-align: center;
+    }
+    .lockscreen-title {
+      font-family: 'Great Vibes', cursive, 'Dancing Script', sans-serif;
+      font-size: 2.2rem;
+      color: #a70042;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 14px #ffd6e7c0;
+      letter-spacing: 0.01em;
+    }
+    .lockscreen-input {
+      margin: 0.7rem 0 1.4rem 0;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      border-radius: 11px;
+      border: 1.7px solid #ffb6d5;
+      font-size: 1.06rem;
+      outline: none;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff8fc;
+      color: #a70042;
+      text-align: center;
+      box-sizing: border-box;
+      transition: border 0.16s;
+    }
+    .lockscreen-input:focus {
+      border: 2px solid #a70042;
+      background: #fff2fa;
+    }
+    .lockscreen-btn {
+      padding: 0.66rem 1.4rem;
+      font-size: 1.02rem;
+      border-radius: 13px;
+      background: #ffb6d5;
+      color: #a70042;
+      border: 2.2px solid #ffb6d5;
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.4rem;
+      transition: box-shadow 0.19s, background 0.19s, color 0.13s, transform 0.14s;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.11);
+      outline: none;
+    }
+    .lockscreen-btn:hover, .lockscreen-btn:focus {
+      background: #ffd6e7;
+      color: #a70042;
+      box-shadow: 0 0 10px 3px #ffd6e7, 0 2px 8px 0 rgba(255, 182, 193, 0.12);
+      transform: scale(1.04);
+      outline: none;
+    }
+    @media (max-width: 600px) {
+      .lockscreen-box {
+        min-width: 90vw;
+        padding: 1rem 0.2rem 1.2rem 0.2rem;
+      }
+      .lockscreen-title { font-size: 1.3rem; }
+    }
+
+    /* Entrance animation for .container */
+    .page-entrance {
+      animation: pageEntrance 1.2s cubic-bezier(.4,0,.2,1) forwards;
+      opacity: 0;
+      transform: scale(0.97) translateY(30px);
+    }
+    @keyframes pageEntrance {
+      from { opacity: 0; transform: scale(0.97) translateY(30px);}
+      to   { opacity: 1; transform: none;}
+    }
+    /* Falling background container */
+    #falling-bg {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    /* Carousel styles from your old inline blocks */
     .carousel-container {
       width: 100%;
       max-width: 560px;
@@ -131,43 +237,18 @@
   </style>
 </head>
 <body>
-  <!-- Lockscreen overlay -->
+  <!-- Lockscreen overlay: appears first, NO falling elements here -->
   <div class="lockscreen-overlay" id="lockscreen">
     <form class="lockscreen-box" id="lockscreen-box" autocomplete="off" onsubmit="return false;">
       <div class="lockscreen-title">galerie foto<br><span style="font-size: 1.13rem;">(parolă necesară)</span></div>
       <input class="lockscreen-input" id="lockscreen-input" type="password" placeholder="parolă" maxlength="16" autofocus>
       <br>
-      <button class="lockscreen-btn" id="lockscreen-btn" type="submit">Deschide</button>
+      <button class="lockscreen-btn" id="lockscreen-btn" type="submit">deschide</button>
     </form>
   </div>
 
-  <!-- Music Player: Custom Bubble -->
-  <audio id="audio-player"></audio>
-  <div class="music-bubble" id="music-bubble">
-    <div class="music-controls" id="music-controls">
-      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
-      <div class="music-title" id="music-title">Preput</div>
-      <div class="music-controls-row">
-        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
-        <button class="music-btn" id="playpause-btn" title="play/pause">
-          <span id="playpause-icon">&#10073;&#10073;</span>
-        </button>
-        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
-      </div>
-      <div class="music-controls-row">
-        <span class="music-time" id="current-time">0:00</span>
-        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
-        <span class="music-time" id="duration">0:00</span>
-      </div>
-      <div class="music-controls-row">
-        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
-        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
-      </div>
-    </div>
-    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
-      <span style="pointer-events:none;">&#119070;</span>
-    </button>
-  </div>
+  <!-- Falling hearts/stars background: appears after unlock -->
+  <div id="falling-bg" style="display:none"></div>
 
   <div class="container" style="display:none;">
     <a href="index.html" class="home-btn">home</a>
@@ -188,8 +269,8 @@
     const lockscreenInput = document.getElementById('lockscreen-input');
     const lockscreenBtn = document.getElementById('lockscreen-btn');
     const container = document.querySelector('.container');
+    const fallingBg = document.getElementById('falling-bg');
 
-    // Prevent inspecting easily
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function (e) {
       if (
@@ -205,6 +286,8 @@
         lockscreen.style.display = "none";
         container.style.display = "";
         container.classList.add("page-entrance");
+        fallingBg.style.display = "";
+        startFallingBackground();
       }, 900);
     }
 
@@ -225,12 +308,50 @@
       if (e.key === "Enter") lockscreenBtn.click();
     });
 
-    // Focus on input always when lockscreen is shown
     setTimeout(() => { try { lockscreenInput.focus(); } catch(e){} }, 250);
+
+    // Subtle falling hearts & stars, only after unlock
+    function startFallingBackground() {
+      const colors = [
+        'rgba(255,182,213,0.7)', 'rgba(255,182,213,0.47)',
+        'rgba(255,255,255,0.25)', 'rgba(255,236,244,0.32)'
+      ];
+      const icons = ['❤️','⭐','💖','✨','💗'];
+      function spawn() {
+        const el = document.createElement('div');
+        el.className = 'falling-emoji';
+        el.innerText = icons[Math.floor(Math.random()*icons.length)];
+        const size = Math.random()*30+17;
+        el.style.position = 'absolute';
+        el.style.left = (Math.random()*100) + 'vw';
+        el.style.top = '-60px';
+        el.style.fontSize = size+'px';
+        el.style.opacity = (Math.random()*0.4+0.22).toFixed(2);
+        el.style.color = colors[Math.floor(Math.random()*colors.length)];
+        el.style.pointerEvents = 'none';
+        el.style.userSelect = 'none';
+        el.style.filter = 'blur(' + (Math.random() > 0.7 ? 0.7 : 0) + 'px)';
+        el.style.zIndex = 0;
+        // Animation
+        const duration = Math.random()*3+5.5;
+        el.animate([
+          { transform: 'translateY(0)', opacity: el.style.opacity },
+          { transform: `translateY(${window.innerHeight + 120}px)`, opacity: '0.06' }
+        ], {
+          duration: duration*1000,
+          easing: 'linear',
+          fill: 'forwards'
+        });
+        setTimeout(() => { fallingBg.removeChild(el); }, duration*1000+400);
+        fallingBg.appendChild(el);
+      }
+      setInterval(spawn, 320);
+      window.addEventListener('resize', () => { fallingBg.innerHTML = ''; });
+    }
   </script>
   <script>
-    // --- CAROUSEL LOGIC (unchanged from previous) ---
-    const imageCount = 15;
+    // --- CAROUSEL LOGIC ---
+    const imageCount = 15; // adjust as needed
     function getCaption(idx) { return `Imaginea ${idx+1}`; }
     const wrapper = document.getElementById('carousel-image-wrapper');
     const indicators = document.getElementById('carousel-indicators');
@@ -250,6 +371,7 @@
         img.style.maxHeight = '100%';
         wrapper.appendChild(img);
         images.push(img);
+        // Preload next image
         if (i < imageCount) { new Image().src = `images/${i+1}.jpg`; }
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 1 ? ' active' : '');
@@ -289,8 +411,5 @@
     function resetAuto() { if (timer) clearInterval(timer); startAuto(); }
     buildCarousel(); startAuto();
   </script>
-  <script src="js/falling-bg.js"></script>
-  <script src="js/entrance.js"></script>
-  <script src="js/music.js" defer></script>
 </body>
 </html>
