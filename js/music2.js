@@ -115,37 +115,44 @@ music2Volume.addEventListener('input', () => {
 music2Audio.volume = music2Volume.value;
 
 // --- Time Slider Logic ---
-// Update times and slider as track plays.
+// Show current time and slider position as track plays.
 music2Audio.addEventListener('timeupdate', () => {
-  if (!music2SeekbarDragging) {
-    music2Seekbar.value = music2Audio.duration ? (music2Audio.currentTime / music2Audio.duration) * 100 : 0;
+  if (!music2SeekbarDragging && music2Audio.duration) {
+    // Update seekbar (0-100 range)
+    music2Seekbar.value = (music2Audio.currentTime / music2Audio.duration) * 100;
     music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
   }
 });
-// Update total duration when metadata is loaded.
+
+// Update total duration when metadata is loaded and enable seeking.
 music2Audio.addEventListener('loadedmetadata', () => {
   music2Duration.textContent = formatTime(music2Audio.duration);
-  // Ensure slider stays in range
-  music2Seekbar.max = 100;
+  music2Seekbar.disabled = false;
 });
-// Seeking: user drags slider, update audio position only on release/input.
-music2Seekbar.addEventListener('mousedown', () => music2SeekbarDragging = true);
-music2Seekbar.addEventListener('touchstart', () => music2SeekbarDragging = true);
-music2Seekbar.addEventListener('input', () => {
-  // Show preview time while dragging
+
+// Seeking: handle drag events to preview and set time
+music2Seekbar.addEventListener('input', (e) => {
+  // During drag, show preview time
   if (music2Audio.duration) {
     const seekTo = (music2Seekbar.value / 100) * music2Audio.duration;
     music2CurrentTime.textContent = formatTime(seekTo);
   }
 });
-music2Seekbar.addEventListener('change', () => {
+music2Seekbar.addEventListener('mousedown', () => music2SeekbarDragging = true);
+music2Seekbar.addEventListener('touchstart', () => music2SeekbarDragging = true);
+
+function finishSeeking() {
   if (music2Audio.duration) {
-    music2Audio.currentTime = (music2Seekbar.value / 100) * music2Audio.duration;
+    const seekTo = (music2Seekbar.value / 100) * music2Audio.duration;
+    music2Audio.currentTime = seekTo;
+    // Show actual time after releasing
+    music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
   }
   music2SeekbarDragging = false;
-});
-music2Seekbar.addEventListener('mouseup', () => music2SeekbarDragging = false);
-music2Seekbar.addEventListener('touchend', () => music2SeekbarDragging = false);
+}
+music2Seekbar.addEventListener('change', finishSeeking);
+music2Seekbar.addEventListener('mouseup', finishSeeking);
+music2Seekbar.addEventListener('touchend', finishSeeking);
 
 // --- Utility: Format seconds as mm:ss ---
 function formatTime(time) {
@@ -156,7 +163,9 @@ function formatTime(time) {
 }
 
 // --- Initialize ---
+music2Seekbar.disabled = true;
 music2SetTrack(0);
+
 
 // --- End of music2.js ---
 /*
