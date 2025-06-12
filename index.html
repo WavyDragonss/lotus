@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>principal - lotus love</title>
-  <!-- romantic and body fonts: great vibes for titles/buttons, quicksand/open sans for body -->
-  <link href="https://fonts.googleapis.com/css2?family=great+vibes&family=quicksand:wght@700&family=open+sans:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Romantic and body fonts: Great Vibes for titles/buttons, Quicksand/Open Sans for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/music2.css">
 </head>
 <body>
-  <!-- music2.js will inject its own html for the player -->
+  <!-- Music Player: Custom Bubble -->
+  <audio id="audio-player"></audio>
+  <div class="music-bubble" id="music-bubble">
+    <div class="music-controls" id="music-controls">
+      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
+      <div class="music-title" id="music-title">Preput</div>
+      <div class="music-controls-row">
+        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
+        <button class="music-btn" id="playpause-btn" title="play/pause">
+          <span id="playpause-icon">&#10073;&#10073;</span>
+        </button>
+        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
+      </div>
+      <div class="music-controls-row">
+        <span class="music-time" id="current-time">0:00</span>
+        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
+        <span class="music-time" id="duration">0:00</span>
+      </div>
+      <div class="music-controls-row">
+        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
+        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
+      </div>
+    </div>
+    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
+      <span style="pointer-events:none;">&#119070;</span>
+    </button>
+  </div>
+
   <div class="container">
     <div class="button-grid">
       <div class="button-col">
@@ -21,19 +47,22 @@
         </a>
         <a href="carusel.html" style="text-decoration:none; width:100%;">
           <button class="main-btn" style="width:100%">
-            Galerie foto
+            galerie foto
           </button>
         </a>
         <a href="generator.html" style="text-decoration:none; width:100%;">
           <button class="main-btn" style="width:100%">
-            Generează un compliment 💖💌
+            generează un compliment 💖💌
           </button>
         </a>
         <a href="dino.html" style="text-decoration:none; width:100%;">
           <button class="dino-btn" style="width:100%">
-            Dinosaur run 🦖
+            dinosaur run 🦖
           </button>
         </a>
+        <!-- ❤️ Reasons I Love You button -->
+        <button class="main-btn" onclick="location.href='cards.html'"> ❤️ Reasons I Love You </button>
+        <!-- End Reasons button -->
       </div>
       <div class="button-col">
         <button class="romantic-btn" disabled><strong>coming soon</strong></button>
@@ -41,9 +70,18 @@
         <button class="romantic-btn" disabled><strong>coming soon</strong></button>
         <button class="romantic-btn" disabled><strong>coming soon</strong></button>
       </div>
+      <!-- Dark Mode Toggle Button (bottom of grid, small and right-aligned) -->
+      <button id="darkToggle" class="main-btn small-btn">🌓 Dark Mode</button>
     </div>
   </div>
-  <script src="js/music2.js"></script>
   <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("darkToggle");
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+      });
+    });
+  </script>
 </body>
 </html>
