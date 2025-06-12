@@ -4,57 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>galerie foto - lotus love</title>
-  <!-- Romantic Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/music.css">
   <style>
-    body {
-      min-height: 100vh;
-      margin: 0;
-      background: url('lotus.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'quicksand', Arial, sans-serif;
-      color: #a70042;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .container {
-      background: rgba(255,255,255,0.16);
-      border-radius: 30px;
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16);
-      padding: 2.1rem 1.3rem 2.4rem 1.3rem;
-      max-width: 700px;
-      width: 98vw;
-      margin: 2.5rem auto;
-      backdrop-filter: blur(5px);
-      border: 2px solid rgba(255,182,213,0.22);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .home-btn {
-      margin-bottom: 2rem;
-      padding: 0.65rem 1.4rem;
-      background: transparent;
-      border: 2.5px solid #ffb6d5;
-      color: #a70042;
-      border-radius: 15px;
-      font-family: 'dancing script', cursive, 'quicksand', Arial, sans-serif;
-      font-size: 1.17rem;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 0.01em;
-      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.09);
-      transition: box-shadow 0.22s, background 0.22s, color 0.18s, transform 0.2s;
-      outline: none;
-      display: inline-block;
-    }
-    .home-btn:hover, .home-btn:focus {
-      background: rgba(255, 182, 213, 0.33);
-      color: #a70042;
-      box-shadow: 0 0 18px 4px #ffb6d5;
-      transform: scale(1.04);
-    }
+    /* Carousel-specific styles here, or keep using your previous ones */
     .carousel-container {
       width: 100%;
       max-width: 560px;
@@ -63,6 +16,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      z-index: 1;
     }
     .carousel-image-wrapper {
       width: 100%;
@@ -165,14 +119,11 @@
       background: #ffb6d5;
       box-shadow: 0 0 6px 2px #ffb6d5b8;
     }
-    /* Music Player styles omitted for brevity, but should be included as in your main index.html */
     @media (max-width: 900px) {
-      .container { max-width: 99vw; padding: 1.2rem 0.3rem 2rem 0.3rem;}
       .carousel-container { max-width: 99vw; }
       .carousel-image-wrapper { border-radius: 17px; }
     }
     @media (max-width: 540px) {
-      .container { max-width: 100vw; padding: 0.7rem 0rem 1.2rem 0rem;}
       .carousel-container { max-width: 100vw; }
       .carousel-image-wrapper { border-radius: 12px; min-height: 120px; }
       .carousel-arrow { width: 34px; height: 34px; font-size: 1.28rem; }
@@ -180,18 +131,48 @@
   </style>
 </head>
 <body>
-  <!--
-    === CAROUSEL CONFIGURATION ===
-    - To add/remove images: set imageCount in JS and add/remove files in /images/ as 1.jpg, 2.jpg, ...
-    - To change transition speed: set autoSlideInterval (ms) in JS (default 6000)
-    - To customize captions: edit getCaption(idx) in JS
-    - All IDs/classes/paths are lowercase for case-sensitive hosting
-  -->
-  <div class="container">
-    <a href="index.html" class="home-btn">Home</a>
+  <!-- Lockscreen overlay -->
+  <div class="lockscreen-overlay" id="lockscreen">
+    <form class="lockscreen-box" id="lockscreen-box" autocomplete="off" onsubmit="return false;">
+      <div class="lockscreen-title">galerie foto<br><span style="font-size: 1.13rem;">(parolă necesară)</span></div>
+      <input class="lockscreen-input" id="lockscreen-input" type="password" placeholder="parolă" maxlength="16" autofocus>
+      <br>
+      <button class="lockscreen-btn" id="lockscreen-btn" type="submit">Deschide</button>
+    </form>
+  </div>
+
+  <!-- Music Player: Custom Bubble -->
+  <audio id="audio-player"></audio>
+  <div class="music-bubble" id="music-bubble">
+    <div class="music-controls" id="music-controls">
+      <button class="mobile-x-button" id="close-mobile-controls" title="închide">&#10005;</button>
+      <div class="music-title" id="music-title">Preput</div>
+      <div class="music-controls-row">
+        <button class="music-btn" id="prev-btn" title="anterior">&#9198;</button>
+        <button class="music-btn" id="playpause-btn" title="play/pause">
+          <span id="playpause-icon">&#10073;&#10073;</span>
+        </button>
+        <button class="music-btn" id="next-btn" title="următor">&#9197;</button>
+      </div>
+      <div class="music-controls-row">
+        <span class="music-time" id="current-time">0:00</span>
+        <input class="music-seekbar" id="seekbar" type="range" min="0" max="100" value="0" step="1">
+        <span class="music-time" id="duration">0:00</span>
+      </div>
+      <div class="music-controls-row">
+        <span style="font-size:1.1rem;color:#a70042;">🔊</span>
+        <input class="music-slider" id="volume-slider" type="range" min="0" max="1" step="0.01" value="0.3" title="volum">
+      </div>
+    </div>
+    <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
+      <span style="pointer-events:none;">&#119070;</span>
+    </button>
+  </div>
+
+  <div class="container" style="display:none;">
+    <a href="index.html" class="home-btn">home</a>
     <div class="carousel-container">
       <div class="carousel-image-wrapper" id="carousel-image-wrapper">
-        <!-- Images loaded by JS -->
         <button class="carousel-arrow left" id="carousel-prev" aria-label="Imaginea anterioară">&#8249;</button>
         <button class="carousel-arrow right" id="carousel-next" aria-label="Imaginea următoare">&#8250;</button>
       </div>
@@ -199,16 +180,58 @@
       <div class="carousel-indicators" id="carousel-indicators"></div>
     </div>
   </div>
+
   <script>
-    // -- CAROUSEL CONFIGURATION AND LOGIC --
-    // To add/remove images: adjust imageCount and keep images in /images/1.jpg, 2.jpg, ... (case sensitive)
-    // To change transition speed: update autoSlideInterval (ms)
-    // To customize captions: edit getCaption(idx)
-    const imageCount = 15; // number of images
-    const autoSlideInterval = 6000; // ms (set to 0 to disable)
-    function getCaption(idx) {
-      return `Imaginea ${idx+1}`;
+    // --- LOCKSCREEN LOGIC ---
+    const lockscreen = document.getElementById('lockscreen');
+    const lockscreenBox = document.getElementById('lockscreen-box');
+    const lockscreenInput = document.getElementById('lockscreen-input');
+    const lockscreenBtn = document.getElementById('lockscreen-btn');
+    const container = document.querySelector('.container');
+
+    // Prevent inspecting easily
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function (e) {
+      if (
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'u')) ||
+        (e.key === 'F12')
+      ) e.preventDefault();
+    });
+
+    function unlockScreen() {
+      lockscreen.classList.add('hidden');
+      setTimeout(() => {
+        lockscreen.style.display = "none";
+        container.style.display = "";
+        container.classList.add("page-entrance");
+      }, 900);
     }
+
+    lockscreenBox.addEventListener('submit', function () {
+      if (lockscreenInput.value === "2008") {
+        lockscreenInput.value = "";
+        lockscreenBox.querySelectorAll("input,button").forEach(el => el.disabled = true);
+        lockscreen.style.transition = "opacity 0.7s cubic-bezier(.4,0,.2,1)";
+        lockscreen.style.background = "#fff";
+        setTimeout(unlockScreen, 600);
+      } else {
+        alert("Try again, or not at all if you're not the love of my life.");
+        lockscreenInput.value = "";
+        lockscreenInput.focus();
+      }
+    });
+    lockscreenInput.addEventListener('keydown', function (e) {
+      if (e.key === "Enter") lockscreenBtn.click();
+    });
+
+    // Focus on input always when lockscreen is shown
+    setTimeout(() => { try { lockscreenInput.focus(); } catch(e){} }, 250);
+  </script>
+  <script>
+    // --- CAROUSEL LOGIC (unchanged from previous) ---
+    const imageCount = 15;
+    function getCaption(idx) { return `Imaginea ${idx+1}`; }
     const wrapper = document.getElementById('carousel-image-wrapper');
     const indicators = document.getElementById('carousel-indicators');
     const caption = document.getElementById('carousel-caption');
@@ -219,7 +242,7 @@
     function buildCarousel() {
       for (let i = 1; i <= imageCount; i++) {
         const img = document.createElement('img');
-        img.src = `images/${i}.jpg`; // <-- Correct path
+        img.src = `images/${i}.jpg`;
         img.className = 'carousel-image' + (i === 1 ? ' active' : '');
         img.draggable = false;
         img.style.objectFit = 'contain';
@@ -227,7 +250,6 @@
         img.style.maxHeight = '100%';
         wrapper.appendChild(img);
         images.push(img);
-        // preload next for smoothness
         if (i < imageCount) { new Image().src = `images/${i+1}.jpg`; }
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 1 ? ' active' : '');
@@ -263,12 +285,12 @@
       if (e.key === 'ArrowLeft') prevImg();
       if (e.key === 'ArrowRight') nextImg();
     });
-    function startAuto() {
-      if (autoSlideInterval > 0)
-        timer = setInterval(() => nextImg(), autoSlideInterval);
-    }
+    function startAuto() { if (timer) clearInterval(timer); timer = setInterval(() => nextImg(), 6000); }
     function resetAuto() { if (timer) clearInterval(timer); startAuto(); }
     buildCarousel(); startAuto();
   </script>
+  <script src="js/falling-bg.js"></script>
+  <script src="js/entrance.js"></script>
+  <script src="js/music.js" defer></script>
 </body>
 </html>
