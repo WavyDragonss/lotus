@@ -51,6 +51,77 @@ body {
   width: 50%;
 }
 
+/* Small button style */
+.small-btn {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  margin-top: 24px;
+  align-self: flex-end;
+}
+
+/* Dark Mode styles */
+.dark-mode {
+  background-color: #111 !important;
+  background-image: none !important;
+  color: #f4f4f4;
+}
+
+.dark-mode .container {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Make all main buttons dark in dark mode */
+.dark-mode .main-btn,
+.dark-mode .dino-btn,
+.dark-mode .romantic-btn,
+.dark-mode .music-btn {
+  background-color: #222 !important;
+  color: #fff !important;
+  border: 1px solid #444;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .main-btn:disabled,
+.dark-mode .romantic-btn:disabled {
+  background-color: #242424 !important;
+  color: #bbb !important;
+}
+
+.dark-mode .music-bubble,
+.dark-mode .music-controls {
+  background: #181818e6 !important;
+  color: #f3e6ec !important;
+  box-shadow: 0 0 18px 3px #1114;
+}
+
+.dark-mode .music-title {
+  color: #fff !important;
+  text-shadow: 0 2px 8px #222;
+}
+
+.dark-mode .music-btn,
+.dark-mode .music-icon-btn {
+  background: #232323 !important;
+  color: #fff !important;
+  border: 1px solid #444;
+}
+
+.dark-mode .music-btn:hover, .dark-mode .music-btn:focus {
+  background: #343434 !important;
+  color: #fff !important;
+}
+
+.dark-mode .music-seekbar,
+.dark-mode .music-slider {
+  accent-color: #ffb6d5;
+  background: #232323 !important;
+}
+
+.dark-mode .music-time {
+  color: #fff !important;
+}
+
 /* --- MAIN BUTTONS --- */
 .main-btn {
   width: 210px;
