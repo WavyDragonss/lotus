@@ -30,6 +30,7 @@ body {
   align-items: center;
 }
 
+/* --- Button 2x4 Grid --- */
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
