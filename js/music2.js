@@ -1,12 +1,12 @@
-// music2.js - Independent second music system popup for lotus.
-// Does NOT interfere with the existing music system.
-// Comments explain structure and slider behavior for future maintainers.
+// music2.js - Second, independent music player popup for lotus.
+// Robust slider (seekbar) logic: allows skipping to any part of the song by dragging.
+// Comments included for clarity and maintenance.
 
 // --- Music Track List ---
 // Customize with your own tracks and titles!
 const music2_tracks = [
-  { src: 'music/lotus_ambient.mp3', title: 'I wanna be yours' },
-  { src: 'music/preput.mp3', title: 'Preput' },
+  { src: 'music/lotus_ambient.mp3', title: 'Lotus Ambient' },
+  { src: 'music/preput.mp3', title: 'Preput' }
 ];
 
 // --- DOM CONSTRUCTION ---
@@ -24,7 +24,7 @@ music2Bubble.innerHTML = `
     </div>
     <div class="music2-controls-row">
       <span class="music2-time" id="music2-current-time">0:00</span>
-      <input class="music2-seekbar" id="music2-seekbar" type="range" min="0" max="100" value="0" step="1">
+      <input class="music2-seekbar" id="music2-seekbar" type="range" min="0" max="1000" value="0" step="1" disabled>
       <span class="music2-time" id="music2-duration">0:00</span>
     </div>
     <div class="music2-controls-row">
@@ -70,6 +70,7 @@ function music2SetTrack(idx, autoplay = false) {
   music2Audio.src = track.src;
   music2Title.textContent = track.title;
   music2Seekbar.value = 0;
+  music2Seekbar.disabled = true;
   music2CurrentTime.textContent = "0:00";
   music2Duration.textContent = "0:00";
   if (autoplay) {
@@ -115,44 +116,44 @@ music2Volume.addEventListener('input', () => {
 music2Audio.volume = music2Volume.value;
 
 // --- Time Slider Logic ---
-// Show current time and slider position as track plays.
+// Enable slider when metadata loads (duration known)
+music2Audio.addEventListener('loadedmetadata', () => {
+  music2Duration.textContent = formatTime(music2Audio.duration);
+  music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
+  music2Seekbar.disabled = false;
+  // Set slider to current time if track is resumed
+  music2Seekbar.value = music2Audio.duration ? Math.round((music2Audio.currentTime / music2Audio.duration) * 1000) : 0;
+});
+
+// Update slider as track plays (unless user is dragging)
 music2Audio.addEventListener('timeupdate', () => {
   if (!music2SeekbarDragging && music2Audio.duration) {
-    // Update seekbar (0-100 range)
-    music2Seekbar.value = (music2Audio.currentTime / music2Audio.duration) * 100;
+    music2Seekbar.value = Math.round((music2Audio.currentTime / music2Audio.duration) * 1000);
     music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
   }
 });
 
-// Update total duration when metadata is loaded and enable seeking.
-music2Audio.addEventListener('loadedmetadata', () => {
-  music2Duration.textContent = formatTime(music2Audio.duration);
-  music2Seekbar.disabled = false;
-});
-
-// Seeking: handle drag events to preview and set time
-music2Seekbar.addEventListener('input', (e) => {
-  // During drag, show preview time
+// When user drags slider, show preview time (but only set .currentTime on release)
+music2Seekbar.addEventListener('input', () => {
   if (music2Audio.duration) {
-    const seekTo = (music2Seekbar.value / 100) * music2Audio.duration;
+    music2SeekbarDragging = true;
+    const seekTo = (music2Seekbar.value / 1000) * music2Audio.duration;
     music2CurrentTime.textContent = formatTime(seekTo);
   }
 });
-music2Seekbar.addEventListener('mousedown', () => music2SeekbarDragging = true);
-music2Seekbar.addEventListener('touchstart', () => music2SeekbarDragging = true);
-
-function finishSeeking() {
-  if (music2Audio.duration) {
-    const seekTo = (music2Seekbar.value / 100) * music2Audio.duration;
-    music2Audio.currentTime = seekTo;
-    // Show actual time after releasing
-    music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
-  }
-  music2SeekbarDragging = false;
-}
-music2Seekbar.addEventListener('change', finishSeeking);
-music2Seekbar.addEventListener('mouseup', finishSeeking);
-music2Seekbar.addEventListener('touchend', finishSeeking);
+['mousedown', 'touchstart'].forEach(evt =>
+  music2Seekbar.addEventListener(evt, () => music2SeekbarDragging = true)
+);
+['mouseup', 'touchend', 'change'].forEach(evt =>
+  music2Seekbar.addEventListener(evt, () => {
+    if (music2Audio.duration && music2SeekbarDragging) {
+      const seekTo = (music2Seekbar.value / 1000) * music2Audio.duration;
+      music2Audio.currentTime = seekTo;
+      music2CurrentTime.textContent = formatTime(music2Audio.currentTime);
+    }
+    music2SeekbarDragging = false;
+  })
+);
 
 // --- Utility: Format seconds as mm:ss ---
 function formatTime(time) {
@@ -163,20 +164,15 @@ function formatTime(time) {
 }
 
 // --- Initialize ---
-music2Seekbar.disabled = true;
 music2SetTrack(0);
-
 
 // --- End of music2.js ---
 /*
 How the slider works:
-- The seekbar input has a range from 0 to 100 (percent of track duration).
+- The seekbar input has a range from 0 to 1000 (for precision).
 - On timeupdate, the seekbar position is updated to reflect currentTime.
-- When the user is dragging (mousedown/touchstart), real-time preview shows in the current time label.
-- On input/change/mouseup/touchend, the track's currentTime is set to the new value (synchronized with the slider).
-- The slider cannot go beyond the duration of the track. If track has no duration, it remains at 0.
-How the pop-up menu works:
-- The music2-bubble is fixed to the lower-right corner (or adjust as desired).
-- Clicking the "note" icon toggles the controls popup.
-- Player is visually independent and can coexist with any other music system.
+- When the user drags the slider (input), the preview time is shown.
+- On mouseup/touchend/change, the audio jumps to the chosen time.
+- The slider is disabled until the track's metadata is loaded.
+- This player is visually and functionally independent from the existing system.
 */
