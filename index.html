@@ -7,8 +7,82 @@
   <!-- Romantic and body fonts: Great Vibes for titles/buttons, Quicksand/Open Sans for body -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Dark mode toggle floating button */
+    #darkToggle {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      z-index: 1002;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #23222b;
+      color: #ffe7f5;
+      border: none;
+      box-shadow: 0 2px 12px 0 rgba(80, 60, 80, 0.13);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s, box-shadow 0.18s;
+      outline: none;
+      opacity: 0.93;
+    }
+    #darkToggle:hover, #darkToggle:focus {
+      background: #4f2d4a;
+      color: #fffad1;
+      box-shadow: 0 0 12px 3px #ffd6e7, 0 2px 8px 0 rgba(255, 182, 193, 0.12);
+    }
+    /* Small main button for "Reasons I Love You" */
+    .main-btn.small-main-btn {
+      font-size: 0.95rem;
+      padding: 0.55rem 0.85rem;
+      width: 170px;
+      min-width: 100px;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+    /* Blacked-out inactive buttons (not the music button, not the reasons button) */
+    .romantic-btn.black-inactive {
+      background: #191919 !important;
+      color: #f0e8f6 !important;
+      border: 2.5px solid #23222b !important;
+      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.19) !important;
+      border-bottom: 3px solid #444 !important;
+      opacity: 1 !important;
+      user-select: none;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+    /* Only the music icon triggers the popup */
+    .music-icon-btn {
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .music-bubble {
+      pointer-events: none;
+    }
+    .music-controls, .music-icon-btn {
+      pointer-events: auto;
+    }
+    /* Prevent pointer events on the rest of the music-bubble */
+    .music-bubble > *:not(.music-controls):not(.music-icon-btn) {
+      pointer-events: none !important;
+    }
+    /* Make sure .music-icon-btn is not full width and is centered in its area */
+    .music-icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
-<body>
+<body class="dark-mode">
   <!-- Music Player: Custom Bubble -->
   <audio id="audio-player"></audio>
   <div class="music-bubble" id="music-bubble">
@@ -33,9 +107,12 @@
       </div>
     </div>
     <button class="music-icon-btn" id="music-icon-btn" aria-label="control muzică" tabindex="0">
-      <span style="pointer-events:none;">&#119070;</span>
+      <span style="pointer-events:auto;">&#119070;</span>
     </button>
   </div>
+
+  <!-- Dark mode toggle button (outside .container, bottom-left corner) -->
+  <button id="darkToggle" aria-label="Switch dark/light mode">🌙</button>
 
   <div class="container">
     <div class="button-grid">
@@ -60,26 +137,55 @@
             dinosaur run 🦖
           </button>
         </a>
-        <!-- ❤️ Reasons I Love You button -->
-        <button class="main-btn" onclick="location.href='cards.html'"> ❤️ Reasons I Love You </button>
-        <!-- End Reasons button -->
       </div>
       <div class="button-col">
-        <button class="romantic-btn" disabled><strong>coming soon</strong></button>
-        <button class="romantic-btn" disabled><strong>coming soon</strong></button>
-        <button class="romantic-btn" disabled><strong>coming soon</strong></button>
-        <button class="romantic-btn" disabled><strong>coming soon</strong></button>
+        <!-- Replace the next coming soon button with Reasons I Love You -->
+        <button class="main-btn small-main-btn" onclick="location.href='cards.html'">❤️ Reasons I Love You</button>
+        <!-- All other coming soon/inactive buttons should be blacked out -->
+        <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
+        <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
+        <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
       </div>
-      <!-- Dark Mode Toggle Button (bottom of grid, small and right-aligned) -->
-      <button id="darkToggle" class="main-btn small-btn">🌓 Dark Mode</button>
     </div>
   </div>
+
   <script src="js/main.js" defer></script>
   <script>
+    // DARK MODE TOGGLE LOGIC
     document.addEventListener("DOMContentLoaded", () => {
       const toggle = document.getElementById("darkToggle");
+      // Default: dark mode enabled
+      document.body.classList.add("dark-mode");
+      toggle.innerText = "🌙";
+      toggle.setAttribute("aria-label", "Switch to light mode");
       toggle.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        toggle.innerText = isDark ? "🌙" : "☀️";
+        toggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      });
+    });
+
+    // MUSIC BUTTON MENU TRIGGER - restrict toggle to only the icon
+    document.addEventListener("DOMContentLoaded", () => {
+      const musicBubble = document.getElementById("music-bubble");
+      const musicIconBtn = document.getElementById("music-icon-btn");
+      // Remove pointer events from parent except the icon
+      musicBubble.style.pointerEvents = "none";
+      musicIconBtn.style.pointerEvents = "auto";
+      // Ensure only the icon toggles the controls popup
+      musicIconBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        musicBubble.classList.toggle("show-controls");
+      });
+      // Optional: Close controls when clicking outside
+      document.addEventListener("click", function (e) {
+        if (
+          musicBubble.classList.contains("show-controls") &&
+          !musicBubble.contains(e.target)
+        ) {
+          musicBubble.classList.remove("show-controls");
+        }
       });
     });
   </script>
