@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>principal - lotus love</title>
-  <!-- Romantic and body fonts: Great Vibes for titles/buttons, Quicksand/Open Sans for body -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/music2.css">
   <style>
-    /* --- Dark Mode Toggle Floating Button --- */
     #darkToggle {
       position: fixed;
       bottom: 22px;
@@ -36,7 +34,6 @@
       color: #fffad1;
       box-shadow: 0 0 12px 3px #ffd6e7, 0 2px 8px 0 rgba(255, 182, 193, 0.12);
     }
-    /* Small main button for "Reasons I Love You" */
     .main-btn.small-main-btn {
       font-size: 0.95rem;
       padding: 0.55rem 0.85rem;
@@ -45,7 +42,6 @@
       margin-top: 2px;
       margin-bottom: 0;
     }
-    /* Blacked-out inactive buttons (not the music button, not the reasons button) */
     .romantic-btn.black-inactive {
       background: #191919 !important;
       color: #f0e8f6 !important;
@@ -57,18 +53,11 @@
       pointer-events: none;
       cursor: not-allowed;
     }
-    /* Ensure music2-bubble always visible, floating bottom-right */
-    .music2-bubble {
-      z-index: 1050 !important;
-    }
   </style>
 </head>
 <body class="dark-mode">
-  <!-- Floating music bubble is injected by js/music2.js -->
-
   <!-- Dark mode toggle button (outside .container, bottom-left corner) -->
   <button id="darkToggle" aria-label="Switch dark/light mode">🌙</button>
-
   <div class="container">
     <div class="button-grid">
       <div class="button-col">
@@ -94,9 +83,7 @@
         </a>
       </div>
       <div class="button-col">
-        <!-- Replace ONLY the first coming soon button with Reasons I Love You -->
         <button class="main-btn small-main-btn" onclick="location.href='cards.html'">❤️ Reasons I Love You</button>
-        <!-- All other coming soon/inactive buttons should be blacked out -->
         <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
         <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
         <button class="romantic-btn black-inactive" disabled><strong>coming soon</strong></button>
@@ -108,7 +95,6 @@
     // DARK MODE TOGGLE LOGIC
     document.addEventListener("DOMContentLoaded", () => {
       const toggle = document.getElementById("darkToggle");
-      // Default: dark mode enabled
       document.body.classList.add("dark-mode");
       toggle.innerText = "🌙";
       toggle.setAttribute("aria-label", "Switch to light mode");
