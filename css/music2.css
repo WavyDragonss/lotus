@@ -1,8 +1,7 @@
-/* music2.css - Second, independent music player popup system. 
-   Designed to visually match the original lotus theme music bubble/player.
-   Safe to use in parallel with the original. */
+/* music2.css - second, independent music player popup system. */
+/* all class and file names are lowercase. */
 
-/* --- MUSIC2 PLAYER BUBBLE --- */
+/* --- music2 player bubble --- */
 .music2-bubble {
   position: fixed;
   bottom: 90px; /* below original by default, adjust if needed */
@@ -99,7 +98,7 @@
 .music2-title {
   text-align: center;
   font-size: 1.07rem;
-  font-family: 'Great Vibes', cursive, 'Open Sans', sans-serif;
+  font-family: 'great vibes', cursive, 'open sans', sans-serif;
   color: #d4006f;
   margin-bottom: 0.41rem;
   margin-top: -0.16rem;
