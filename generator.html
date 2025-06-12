@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Un compliment pentru tine 💌</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Optional fade animation for compliments */
+    .compliment-fade {
+      animation: complimentFadeIn 0.7s;
+    }
+    @keyframes complimentFadeIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.98);}
+      to { opacity: 1; transform: none;}
+    }
+
+    .compliment-container {
+      background: rgba(255,255,255,0.16);
+      border-radius: 30px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.16);
+      padding: 2.2rem 2rem 2.5rem 2rem;
+      max-width: 500px;
+      width: 98vw;
+      margin: 3rem auto;
+      backdrop-filter: blur(5px);
+      border: 2px solid rgba(255,182,213,0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .compliment-title {
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-size: 2.2rem;
+      color: #a70042;
+      margin-bottom: 1.4rem;
+      text-shadow: 0 2px 14px #ffd6e7c0;
+      letter-spacing: 0.01em;
+    }
+    #compliment {
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-size: 1.45rem;
+      color: #d4006f;
+      background: rgba(255,255,255,0.34);
+      border-radius: 18px;
+      box-shadow: 0 4px 22px 0 rgba(255, 182, 193, 0.12);
+      padding: 1.3rem 1.1rem;
+      min-height: 3.5em;
+      margin-bottom: 2.1rem;
+      max-width: 95vw;
+      transition: background 0.22s;
+      word-break: break-word;
+      line-height: 1.6;
+      min-width: 210px;
+      /* Expandable for future longer compliments */
+    }
+    #generateBtn {
+      padding: 0.82rem 1.4rem;
+      font-size: 1.13rem;
+      border-radius: 15px;
+      background: #ffb6d5;
+      color: #a70042;
+      border: 2.5px solid #ffb6d5;
+      box-shadow: 0 2px 12px 0 rgba(255, 182, 193, 0.10);
+      font-family: 'Dancing Script', cursive, 'Great Vibes', 'Open Sans', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+        transform 0.2s cubic-bezier(.4,0,.2,1),
+        background 0.22s cubic-bezier(.4,0,.2,1),
+        color 0.18s cubic-bezier(.4,0,.2,1);
+      outline: none;
+      letter-spacing: 0.01em;
+    }
+    #generateBtn:hover, #generateBtn:focus {
+      background: #ffd6e7;
+      color: #a70042;
+      box-shadow: 0 0 16px 3px #ffb6d5, 0 2px 10px 0 rgba(255, 182, 193, 0.15);
+      transform: scale(1.04);
+      outline: none;
+    }
+    @media (max-width: 600px) {
+      .compliment-container { padding: 1.1rem 0.3rem 1.7rem 0.3rem; }
+      .compliment-title { font-size: 1.38rem; }
+      #compliment { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="compliment-container">
+    <div class="compliment-title">Un compliment pentru tine 💌</div>
+    <div id="compliment"></div>
+    <button id="generateBtn">Generează un compliment 💖</button>
+  </div>
+  <!-- Compliment scripts (order is important) -->
+  <script src="js/complimente.js"></script>
+  <script src="js/generator.js"></script>
+</body>
+</html>
