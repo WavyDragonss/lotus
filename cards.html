@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>motivele mele pentru tine - lotus love</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&family=Quicksand:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/music2.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffe0ef 0%, #fff8fc 100%);
+      min-height: 100vh;
+    }
+    .cards-container {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 2.3rem 0 4rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .cards-title {
+      font-family: "Great Vibes", "Dancing Script", cursive, "Open Sans", sans-serif;
+      font-size: 2.2rem;
+      color: #a70042;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.7rem;
+      text-align: center;
+      text-shadow: 0 2px 18px #ffd6e7b2;
+    }
+    .card-fade {
+      opacity: 0;
+      transform: translateY(40px) scale(0.97);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .card-fade.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1.03);
+      pointer-events: auto;
+    }
+    @media (max-width: 600px) {
+      .cards-container { max-width: 98vw; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Music Player Bubble (same as on main/index), using music2.js/music2.css -->
+  <!-- Injects itself; nothing needed here -->
+
+  <div class="cards-title">Motivele mele pentru tine</div>
+  <div class="cards-container" id="cards-container">
+    <!-- Cards will be injected by JS -->
+  </div>
+
+  <script src="js/cards.js"></script>
+  <script src="js/music2.js"></script>
+</body>
+</html>
