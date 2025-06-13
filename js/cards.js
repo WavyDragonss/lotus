@@ -40,7 +40,16 @@ cardTexts.forEach((text, idx) => {
   `;
   // Flip logic
   function flipCard() {
-    card.classList.toggle('flipped');
+    // If the card is not flipped, flip it and close all others
+    if (!card.classList.contains('flipped')) {
+      document.querySelectorAll('.card-flip.flipped').forEach(c => {
+        if (c !== card) c.classList.remove('flipped');
+      });
+      card.classList.add('flipped');
+      card.scrollIntoView({behavior:"smooth", block:"center"});
+    } else {
+      card.classList.remove('flipped');
+    }
   }
   card.addEventListener('click', flipCard);
   card.addEventListener('keydown', e => {
@@ -52,29 +61,25 @@ cardTexts.forEach((text, idx) => {
   cardsContainer.appendChild(card);
 });
 
-// --- Scroll Fade Animation ---
+// --- Only 1 card fully visible, others fade & close ---
+// Fade based on intersection with viewport, and close if scrolled away
 const allCards = Array.from(document.querySelectorAll('.card-flip'));
-const visibleCount = 4;
 
-function handleCardFade() {
-  const winH = window.innerHeight;
-  allCards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    // Show only cards that are at least partially in viewport (centered)
-    if (
-      rect.top < winH - 60 &&
-      rect.bottom > 60
-    ) {
-      card.classList.add('visible');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+      entry.target.classList.add('visible');
     } else {
-      card.classList.remove('visible');
+      entry.target.classList.remove('visible');
+      entry.target.classList.remove('flipped');
     }
   });
-}
-window.addEventListener('scroll', handleCardFade, {passive:true});
-window.addEventListener('resize', handleCardFade);
-setTimeout(handleCardFade, 80);
+}, {
+  threshold: [0,0.75,1]
+});
+allCards.forEach(card => observer.observe(card));
 
-// --- Accessibility: Ensure tabIndex and keyboard flip
-
-// --- Touch accessibility is ensured via click handler ---
+// Center the cards container always
+window.addEventListener('resize', () => {
+  document.body.scrollIntoView({behavior:"auto", block:"center"});
+});
