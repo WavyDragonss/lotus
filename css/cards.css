@@ -2,36 +2,46 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.1rem;
+  gap: 4.2rem;
+  width: 100vw;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0 auto;
 }
 
+/* Make each card take nearly the full viewport */
 .card-flip {
   background: linear-gradient(135deg, #fff6fa 0%, #ffe0ef 90%);
-  box-shadow: 0 8px 28px 0 rgba(255,182,213,0.22);
-  border-radius: 32px;
-  width: 91vw;
-  max-width: 540px;
-  height: 260px;
+  box-shadow: 0 8px 38px 0 rgba(255,182,213,0.25);
+  border-radius: 38px;
+  width: 98vw;
+  max-width: 650px;
+  height: 75vh;
+  min-height: 320px;
+  max-height: 85vh;
   position: relative;
-  perspective: 1200px;
+  perspective: 1400px;
   cursor: pointer;
   margin: 0 auto;
   user-select: none;
   transition: box-shadow 0.19s, transform 0.18s;
   outline: none;
   border: 2.5px solid #ffb6d5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .card-flip:focus, .card-flip:hover {
-  box-shadow: 0 12px 42px 0 #ffb6d5c0, 0 8px 26px 0 rgba(255,182,213,0.30);
+  box-shadow: 0 14px 56px 0 #ffb6d5c7, 0 8px 26px 0 rgba(255,182,213,0.35);
   background: #ffd6e7;
   color: #a70042;
-  transform: scale(1.035);
+  transform: scale(1.015);
   border-color: #ffd6e7;
 }
 .card-inner {
   width: 100%;
   height: 100%;
-  border-radius: 32px;
+  border-radius: 38px;
   transition: transform 0.62s cubic-bezier(.44,.2,.2,1.1);
   transform-style: preserve-3d;
   position: relative;
@@ -44,16 +54,16 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 32px;
+  border-radius: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Dancing Script", "Great Vibes", cursive, "Open Sans", sans-serif;
-  font-size: 2.1rem;
+  font-size: 2.7rem;
   color: #a70042;
   letter-spacing: 0.01em;
   text-align: center;
-  padding: 2.1rem;
+  padding: 2.2rem;
   box-sizing: border-box;
   background: transparent;
   cursor: pointer;
@@ -62,7 +72,7 @@
 .card-front {
   background: linear-gradient(135deg, #fff8fc 0%, #ffe0ef 100%);
   border: 2.5px solid #ffd6e7;
-  font-size: 2.5rem;
+  font-size: 3.1rem;
   justify-content: center;
   align-items: center;
   color: #dd1375;
@@ -71,34 +81,54 @@
   gap: 0.7rem;
 }
 .card-front .heart {
-  font-size: 3rem;
-  margin-left: 0.5rem;
+  font-size: 3.2rem;
+  margin-left: 0.7rem;
   vertical-align: middle;
 }
 .card-back {
   transform: rotateY(180deg);
   background: linear-gradient(135deg, #ffe0ef 0%, #fff6fa 100%);
   border: 2.5px solid #ffd6e7;
-  font-size: 1.7rem;
+  font-size: 2.1rem;
   color: #a70042;
+}
+
+/* No title, only cards, center everything */
+.cards-title, .cards-header, .cards-description {
+  display: none !important;
+}
+body, html {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffe0ef 0%, #fff8fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 800px) {
   .card-flip {
-    width: 98vw;
+    width: 99vw;
     max-width: 99vw;
-    height: 210px;
-    font-size: 1.5rem;
+    height: 66vh;
+    min-height: 180px;
+    font-size: 2.0rem;
+    border-radius: 20px;
   }
-  .card-front, .card-back { font-size: 1.22rem; }
+  .card-front, .card-back { font-size: 1.6rem; padding: 1.1rem; border-radius: 20px;}
 }
 
 @media (max-width: 600px) {
   .card-flip {
-    width: 99vw;
-    min-width: 0;
-    height: 145px;
-    font-size: 1.14rem;
+    width: 100vw;
+    max-width: 100vw;
+    height: 53vw;
+    min-height: 130px;
+    font-size: 1.3rem;
+    border-radius: 14px;
   }
-  .card-front, .card-back { font-size: 1.08rem; padding: 1.1rem; }
+  .card-front, .card-back { font-size: 1.1rem; padding: 1rem; border-radius: 14px;}
 }
