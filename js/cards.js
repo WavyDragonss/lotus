@@ -1,6 +1,6 @@
 // --- Card Data ---
 const cardTexts = [
-  "Zâmbetul tău îmi luminează ziua, chiar și atunci când e mohorât afară.",
+  "Zâmbetul tău îmi luminează ziua, chiar și atunci când e urat afară.",
   "Ești frumoasă în cele mai simple moduri, iar frumusețea ta mă cucerește mereu.",
   "Îți pasă de mine cu o grijă pe care n-am mai simțit-o niciodată.",
   "Mă susții mereu, mai ales atunci când simt că nu pot.",
