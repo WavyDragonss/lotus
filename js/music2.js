@@ -1,9 +1,13 @@
 // music2.js - floating music player bubble for lotus site
 
 const music2_tracks = [
-  { src: 'music/lotus_ambient.mp3', title: 'Lotus Ambient' },
-  { src: 'music/preput.mp3', title: 'Preput' }
-];
+  { src: 'music/lotus_ambient.mp3', title: 'I Wanna Be Yours' },
+  { src: 'music/preput.mp3', title: 'Preput' },
+  { src: 'music/animals.mp3', title: 'Animals' },
+  { src: 'music/shut.mp3', title: 'Shut Up And Dance With Me' },
+  { src: 'music/cant.mp3', title: "Can't Hold Us" },
+  { src: 'music/bones.mp3', title: 'Bones' }
+]
 
 // --- dom construction ---
 const music2bubble = document.createElement('div');
