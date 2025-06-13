@@ -1,26 +1,27 @@
 // --- Card Data ---
 const cardTexts = [
-  "Your smile lights up my day.",
-  "You make me feel safe and loved.",
-  "You laugh at my dumb jokes.",
-  "You’re my favorite person in the universe.",
-  "I admire your strength and resilience.",
-  "You always believe in me.",
-  "Every moment with you feels special.",
-  "You inspire me to be better.",
-  "We make the best memories together.",
-  "Your kindness melts my heart.",
-  "I love our late-night talks.",
-  "You know how to cheer me up.",
-  "I love the way you look at me.",
-  "Your hugs feel like home.",
-  "You are my light on dark days.",
-  "You listen even when I ramble.",
-  "You make ordinary days magical.",
-  "I love your creativity.",
-  "Being with you feels like destiny.",
-  "You are my forever person."
+  "Zâmbetul tău îmi luminează ziua, chiar și atunci când e mohorât afară.",
+  "Ești frumoasă în cele mai simple moduri, iar frumusețea ta mă cucerește mereu.",
+  "Îți pasă de mine cu o grijă pe care n-am mai simțit-o niciodată.",
+  "Mă susții mereu, mai ales atunci când simt că nu pot.",
+  "Iubesc cât de generoasă ești — dai fără să aștepți nimic în schimb.",
+  "Ai un suflet mare și o inimă care știe să iubească frumos.",
+  "Nu uiți niciodată să mă lauzi când reușesc ceva, și asta mă motivează enorm.",
+  "Râzi cu mine din tot sufletul, și umorul tău e perfect pentru sufletul meu.",
+  "Faptul că faci sacrificii pentru mine îmi arată cât de profund mă iubești.",
+  "Ești mereu atentă ca și mie să-mi fie bine, chiar și când e greu.",
+  "Îmi ești cea mai bună prietenă și cea mai dulce iubită în același timp.",
+  "Când sunt cu tine, chiar și cele mai plictisitoare momente devin magice.",
+  "Mă iubești fix așa cum sunt, fără să încerci să mă schimbi.",
+  "Mă faci să mă simt norocos în fiecare zi că te am în viața mea.",
+  "Iubesc cum ne completăm — tu ești calmul din furtuna mea.",
+  "Te gândești mereu la mine și îmi arăți asta prin cele mai mici gesturi.",
+  "Privirea ta are ceva ce nu pot explica, dar mă face să mă simt acasă.",
+  "Ești mai mică cu un an, dar ai o maturitate care mă impresionează.",
+  "Când ne întâlnim la școală, toată lumea dispare din jurul meu — rămâi doar tu.",
+  "Claudia, ești persoana mea preferată din tot universul, și nu mi-aș putea dori pe altcineva."
 ];
+
 
 // --- Card Generation ---
 const cardsContainer = document.getElementById('cards-container');
